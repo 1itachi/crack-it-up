@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackItUp">
+        <activity android:name=".Topic" />
+        <activity android:name=".ChooseTopic" />
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".HomeScreenActivity">
             <intent-filter>

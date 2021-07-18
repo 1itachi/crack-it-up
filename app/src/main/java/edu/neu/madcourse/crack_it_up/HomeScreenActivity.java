@@ -15,7 +15,9 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickLearnButton(View view) {
-        System.out.println("CLicked Learn button");
+        Intent chooseTopicIntent = new Intent(HomeScreenActivity.this, ChooseTopic.class);
+        // Start the new activity
+        startActivity(chooseTopicIntent);
     }
 
     public void onClickQuizButton(View view) {
