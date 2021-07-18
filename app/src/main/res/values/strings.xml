@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Crack-It-Up</string>
+    <string name="learn">Learn</string>
+    <string name="quiz">Quiz</string>
+    <string name="behavioral_practice">Behavioral Practice</string>
+    <string name="interview_tips">Interview tips</string>
+    <string name="resume_tips">Resume tips</string>
 </resources>
