@@ -9,5 +9,6 @@
     <string name="behavioral_practice">Behavioral Practice</string>
     <string name="interview_tips">Interview tips</string>
     <string name="resume_tips">Resume tips</string>
+    <string name="user_info_behavioral_topic_selection">Choose a topic to view questions and start practicing</string>
 
 </resources>

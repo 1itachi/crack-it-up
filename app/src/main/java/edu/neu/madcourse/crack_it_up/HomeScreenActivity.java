@@ -1,5 +1,6 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,6 +24,8 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void onClickBehavioralPracticeButton(View view) {
         System.out.println("CLicked behavioralPractice button");
+        Intent topicIntent = new Intent(HomeScreenActivity.this, BehavioralTopicSelectionActivity.class);
+        startActivity(topicIntent);
     }
 
     public void onClickInterviewTipsButton(View view) {
