@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackItUp">
         <activity android:name=".Signup"></activity>
-        <activity android:name=".Topic" />
-        <activity android:name=".ChooseTopic" />
+        <activity android:name=".TopicScreenSlide" />
         <activity android:name=".HomeScreenActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

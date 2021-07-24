@@ -12,6 +12,11 @@
     <string name="resume_tips">Resume tips</string>
     <string name="user_info_behavioral_topic_selection">Choose a topic to view questions and start practicing</string>
     <string name="sign_up_text">New User? <font color='#FFFFFF'>Sign Up</font></string>
+    <string name="action_finish">Finish</string>
+    <string name="action_next">Next</string>
+    <item type="id" name="action_next" />
+    <string name="action_previous">Previous</string>
+    <string name="lorem_ipsum_dolor_sit_amet">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et magna ut erat elementum cursus in quis ipsum. Nam faucibus ultrices eros, vel tempor leo semper sit amet. Duis magna quam, congue vitae interdum nec, condimentum ut lectus. Sed commodo venenatis eros a dignissim. Nunc adipiscing turpis nec magna venenatis at ultricies ipsum bibendum. Sed volutpat urna quis nisi vulputate egestas. Etiam eu dui a enim lacinia dapibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus orci mi, eleifend nec congue id, volutpat at neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper velit vel leo rutrum sed fermentum elit porta.</string>
     <string name="history">Hisrory</string>
     <string name="sample_question">sample question</string>
     <string name="dummy_string">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>

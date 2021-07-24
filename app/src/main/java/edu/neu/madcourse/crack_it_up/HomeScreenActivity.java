@@ -18,7 +18,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     public void onClickLearnButton(View view) {
-        System.out.println("CLicked behavioralPractice button");
+        System.out.println("CLicked Learn button");
 
         Intent intent = new Intent(this, TopicSelection.class);
         intent.putExtra("objective", "learn");
