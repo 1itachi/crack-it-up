@@ -29,6 +29,11 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".BehavioralPracticeActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

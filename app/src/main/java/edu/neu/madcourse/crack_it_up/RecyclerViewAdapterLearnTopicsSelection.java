@@ -3,6 +3,7 @@ package edu.neu.madcourse.crack_it_up;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         String topicName = topic_card_list.get(position).getTopicName();
-        holder.topicName.setText(topicName);
+        holder.topicButton.setText(topicName);
     }
 
     @Override
@@ -40,14 +41,21 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView topicName;
+        private Button topicButton;
         private TopicListener topicListener;
 
         public RecyclerViewHolder(@NonNull View itemView, TopicListener topicListener) {
             super(itemView);
-            topicName = itemView.findViewById(R.id.topicButton);
+            topicButton = itemView.findViewById(R.id.topicButton);
             this.topicListener = topicListener;
             itemView.setOnClickListener(this);
+
+            topicButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    topicListener.onTopicButtonClick(getAdapterPosition());
+                }
+            });
         }
 
         @Override
@@ -58,5 +66,7 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
 
     public interface TopicListener{
         void onTopicClick(int position);
+
+        void onTopicButtonClick(int position);
     }
 }

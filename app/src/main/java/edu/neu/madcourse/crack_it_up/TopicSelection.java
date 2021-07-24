@@ -57,17 +57,36 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     public void onTopicClick(int position) {
         System.out.println("Topic clicked at position " + position);
 
+        Intent intent;
         if(objective.equals("behavioral")) {
-            Intent intent = new Intent(this, Topic.class);
-            intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
-            intent.putExtra("username", username);
-            startActivity(intent);
+            intent = new Intent(this, MainActivity.class);
         }
         else {
-            Intent intent = new Intent(this, Topic.class);
-            intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
-            intent.putExtra("username", username);
-            startActivity(intent);
+            intent = new Intent(this, Topic.class);
         }
+
+        intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTopicButtonClick(int position) {
+        System.out.println("Topic clicked at position " + position + " for objective = " + objective);
+
+        Intent intent;
+        if(objective.equals("behavioral")) {
+            intent = new Intent(this, BehavioralPracticeActivity.class);
+        }
+        else if (objective.equals("learn")){
+            intent = new Intent(this, Topic.class);
+        }
+        else {
+            intent = new Intent(this, HomeScreenActivity.class);
+        }
+
+        intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 }
