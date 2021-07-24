@@ -12,5 +12,8 @@
     <string name="resume_tips">Resume tips</string>
     <string name="user_info_behavioral_topic_selection">Choose a topic to view questions and start practicing</string>
     <string name="sign_up_text">New User? <font color='#FFFFFF'>Sign Up</font></string>
+    <string name="history">Hisrory</string>
+    <string name="sample_question">sample question</string>
+    <string name="dummy_string">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
     <string name="login_text">Already a User? <font color='#FFFFFF'>Login</font></string>
 </resources>
