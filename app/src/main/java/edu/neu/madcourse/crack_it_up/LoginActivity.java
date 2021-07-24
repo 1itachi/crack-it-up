@@ -8,12 +8,25 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class LoginActivity extends AppCompatActivity {
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     // called upon clicking Login button
@@ -21,23 +34,23 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println("Login button clicked");
 
 
-        Intent intent1 = new Intent(LoginActivity.this, HomeScreenActivity.class);
-
-        startActivity(intent1);
-
-
-        //logic to handle login activity (should be implemented later)
-//        TextView usernameTextView = (TextView) findViewById(R.id.editUsername);
+//        TextView usernameTextView = (TextView) findViewById(R.id.userName);
 //        String username = usernameTextView.getText().toString().replaceAll("\\s", "");
-//
-//        if (username.length() == 0) {
-//            Toast myToast = Toast.makeText(this, "Enter Username!", Toast.LENGTH_LONG);
-//            myToast.show();
-//        }else {
-//            Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
-//            intent1.putExtra("USERNAME", username);
-//            startActivity(intent1);
-//        }
+
+        TextInputLayout textInputLayout = findViewById(R.id.userName);
+        String username = textInputLayout.getEditText().getText().toString().replaceAll("\\s", "");
+        ;
+
+
+        if (username.length() == 0) {
+            Toast myToast = Toast.makeText(this, "Enter Username!", Toast.LENGTH_LONG);
+            myToast.show();
+        }else {
+            Intent intent1 = new Intent(LoginActivity.this, HomeScreenActivity.class);
+            intent1.putExtra("USERNAME", username);
+            startActivity(intent1);
+        }
+
     }
 
     // called upon clicking Login button

@@ -14,7 +14,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-        username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("USERNAME");
     }
 
     public void onClickLearnButton(View view) {
