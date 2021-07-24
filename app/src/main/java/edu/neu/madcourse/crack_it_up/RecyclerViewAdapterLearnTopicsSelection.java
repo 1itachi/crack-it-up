@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +45,7 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
 
         public RecyclerViewHolder(@NonNull View itemView, TopicListener topicListener) {
             super(itemView);
-            topicButton = itemView.findViewById(R.id.topicButton);
+            topicButton = itemView.findViewById(R.id.recordButton);
             this.topicListener = topicListener;
             itemView.setOnClickListener(this);
 

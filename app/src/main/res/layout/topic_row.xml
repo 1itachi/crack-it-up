@@ -28,7 +28,7 @@
             tools:layout_editor_absoluteY="33dp">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/topicButton"
+                android:id="@+id/recordButton"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="130dp"
                 android:layout_height="130dp"

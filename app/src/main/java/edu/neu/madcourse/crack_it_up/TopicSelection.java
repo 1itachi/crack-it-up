@@ -65,8 +65,8 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, Topic.class);
         }
 
-        intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
-        intent.putExtra("username", username);
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 
@@ -85,8 +85,8 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, HomeScreenActivity.class);
         }
 
-        intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
-        intent.putExtra("username", username);
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 }

@@ -47,11 +47,11 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
         private Button historicResponseButton;
         private QuestionListener questionListener;
 
-        public RecyclerViewHolder(@NonNull View itemView, QuestionListener QuestionListener) {
+        public RecyclerViewHolder(@NonNull View itemView, QuestionListener questionListener) {
             super(itemView);
             questionTextView = itemView.findViewById(R.id.questionTextView);
             historicResponseButton = itemView.findViewById(R.id.historicResponseButton);
-            this.questionListener = QuestionListener;
+            this.questionListener = questionListener;
             itemView.setOnClickListener(this);
 
             historicResponseButton.setOnClickListener(new View.OnClickListener() {

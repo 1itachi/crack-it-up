@@ -16,4 +16,7 @@
     <string name="sample_question">sample question</string>
     <string name="dummy_string">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
     <string name="login_text">Already a User? <font color='#FFFFFF'>Login</font></string>
+    <string name="response_history_dialog">View Response History</string>
+    <string name="example_answers_dialog">View Example Answers</string>
+    <string name="record_audio_answer">Long press to record Audio Answer</string>
 </resources>

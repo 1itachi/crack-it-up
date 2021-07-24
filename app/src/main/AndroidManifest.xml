@@ -35,5 +35,10 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".BehavioralQuestionRecordActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 </manifest>

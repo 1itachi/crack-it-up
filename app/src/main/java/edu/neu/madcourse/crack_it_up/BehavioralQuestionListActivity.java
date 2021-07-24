@@ -1,5 +1,6 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,7 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_behavioral_question_list);
 
         username = getIntent().getStringExtra("username");
-        topicName = getIntent().getStringExtra("topicName");
+        topicName = getIntent().getStringExtra("TOPIC_NAME");
 
         questionsCards = getQuestionsFromFirebase();
 
@@ -48,11 +49,21 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
 
     @Override
     public void onQuestionClick(int position) {
-        System.out.println("Clicked question");
+        QuestionCard questionCard = questionsCards.get(position);
+        System.out.println("Clicked question at position " + questionCard.getQuestionId() + " and " +
+                "question is: " +questionCard.getQuestionText());
+
+        Intent intent = new Intent(this, BehavioralQuestionRecordActivity.class);
+        intent.putExtra("QUESTION_ID", questionCard.getQuestionId());
+        intent.putExtra("QUESTION_TEXT", questionCard.getQuestionText());
+        intent.putExtra("TOPIC_NAME", topicName);
+        intent.putExtra("USERNAME", username);
+        startActivity(intent);
     }
 
     @Override
     public void onHistoricResponseButtonClick(int position) {
-        System.out.println("Clicked history button for question id ");
+        int questionId = questionsCards.get(position).getQuestionId();
+        System.out.println("Clicked history button for question id " + questionId);
     }
 }
