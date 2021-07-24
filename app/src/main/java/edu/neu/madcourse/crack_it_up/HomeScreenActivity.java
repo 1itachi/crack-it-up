@@ -7,11 +7,14 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeScreenActivity extends AppCompatActivity {
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+        username = getIntent().getStringExtra("username");
     }
 
     public void onClickLearnButton(View view) {
@@ -26,8 +29,11 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void onClickBehavioralPracticeButton(View view) {
         System.out.println("CLicked behavioralPractice button");
-        Intent topicIntent = new Intent(HomeScreenActivity.this, BehavioralTopicSelectionActivity.class);
-        startActivity(topicIntent);
+
+        Intent intent = new Intent(this, TopicSelection.class);
+        intent.putExtra("objective", "behavioral");
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 
     public void onClickInterviewTipsButton(View view) {

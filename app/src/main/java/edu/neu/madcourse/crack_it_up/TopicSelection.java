@@ -1,0 +1,73 @@
+package edu.neu.madcourse.crack_it_up;
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class TopicSelection extends AppCompatActivity implements RecyclerViewAdapterLearnTopicsSelection.TopicListener{
+
+    private RecyclerView recyclerViewForAllTopics;
+    private RecyclerView.LayoutManager recyclerViewLayoutManger;
+    private RecyclerViewAdapterLearnTopicsSelection recyclerViewAdapter;
+    private ArrayList<TopicCard> topicCards = new ArrayList<>();
+    private String username, objective;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_topic_selection);
+        username = getIntent().getStringExtra("username");
+        objective = getIntent().getStringExtra("objective");
+        topicCards = getTopicsFromFirebase();
+
+        //recycler view
+        recyclerViewForAllTopics = findViewById(R.id.recyclerViewAllTopics);
+        recyclerViewLayoutManger = new GridLayoutManager(this, 2);
+        recyclerViewForAllTopics.setLayoutManager(recyclerViewLayoutManger);
+
+        recyclerViewAdapter = new RecyclerViewAdapterLearnTopicsSelection(topicCards, this);
+        recyclerViewForAllTopics.setAdapter(recyclerViewAdapter);
+    }
+
+    private ArrayList<TopicCard> getTopicsFromFirebase() {
+
+        ArrayList<TopicCard> topicCards = new ArrayList<>();
+        topicCards.add(new TopicCard("abc"));
+        topicCards.add(new TopicCard("def"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        topicCards.add(new TopicCard("ijk"));
+        topicCards.add(new TopicCard("lmn"));
+        return  topicCards;
+    }
+
+    @Override
+    public void onTopicClick(int position) {
+        System.out.println("Topic clicked at position " + position);
+
+        if(objective.equals("behavioral")) {
+            Intent intent = new Intent(this, Topic.class);
+            intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
+            intent.putExtra("username", username);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, Topic.class);
+            intent.putExtra("topic_selected", topicCards.get(position).getTopicName());
+            intent.putExtra("username", username);
+            startActivity(intent);
+        }
+    }
+}
