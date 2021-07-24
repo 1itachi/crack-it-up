@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println("Login button clicked");
 
 
-        Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent1 = new Intent(LoginActivity.this, HomeScreenActivity.class);
 
         startActivity(intent1);
 
@@ -38,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
 //            intent1.putExtra("USERNAME", username);
 //            startActivity(intent1);
 //        }
+    }
+
+    // called upon clicking Login button
+    public void onClickSignUp(View view) {
+        System.out.println("Sign up text clicked");
+
+
+        Intent intent1 = new Intent(LoginActivity.this, Signup.class);
+
+        startActivity(intent1);
+
     }
 
 

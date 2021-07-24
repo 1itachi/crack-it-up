@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackItUp">
+        <activity android:name=".Signup"></activity>
         <activity android:name=".Topic" />
         <activity android:name=".ChooseTopic" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".HomeScreenActivity">
+        <activity android:name=".HomeScreenActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +23,12 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name=".TopicSelection"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name=".BehavioralPracticeActivity"
@@ -35,5 +36,4 @@
             android:label="@string/app_name" >
         </activity>
     </application>
-
 </manifest>
