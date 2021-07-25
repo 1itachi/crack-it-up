@@ -1,4 +1,5 @@
 package edu.neu.madcourse.crack_it_up;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class TopicSelection extends AppCompatActivity implements RecyclerViewAdapterLearnTopicsSelection.TopicListener{
+public class TopicSelection extends AppCompatActivity implements RecyclerViewAdapterLearnTopicsSelection.TopicListener {
 
     private RecyclerView recyclerViewForAllTopics;
     private RecyclerView.LayoutManager recyclerViewLayoutManger;
@@ -33,13 +34,13 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
                     intent = new Intent(this, HomeScreenActivity.class);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(0, 0);
                     return true;
                 case R.id.profilePage:
                     intent = new Intent(this, MainActivity.class);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(0, 0);
                     return true;
             }
             return false;
@@ -75,7 +76,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         topicCards.add(new TopicCard("lmn"));
         topicCards.add(new TopicCard("ijk"));
         topicCards.add(new TopicCard("lmn"));
-        return  topicCards;
+        return topicCards;
     }
 
     @Override
@@ -83,10 +84,9 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         System.out.println("Topic clicked at position " + position);
 
         Intent intent;
-        if(objective.equals("behavioral")) {
+        if (objective.equals("behavioral")) {
             intent = new Intent(this, MainActivity.class);
-        }
-        else {
+        } else {
             intent = new Intent(this, TopicScreenSlide.class);
         }
 
@@ -100,13 +100,13 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         System.out.println("Topic clicked at position " + position + " for objective = " + objective);
 
         Intent intent;
-        if(objective.equals("behavioral")) {
+        if (objective.equals("behavioral")) {
             intent = new Intent(this, BehavioralQuestionListActivity.class);
-        }
-        else if (objective.equals("learn")){
+        } else if (objective.equals("learn")) {
             intent = new Intent(this, TopicScreenSlide.class);
-        }
-        else {
+        } else if (objective.equals("quiz")) {
+            intent = new Intent(this, TopicScreenSlide.class);
+        } else {
             intent = new Intent(this, TopicScreenSlide.class);
         }
 
