@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 public class BehavioralQuestionListActivity extends AppCompatActivity implements RecyclerViewAdapterQuestionsForTopic.QuestionListener{
@@ -35,6 +37,28 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
 
         recyclerViewAdapter = new RecyclerViewAdapterQuestionsForTopic(questionsCards, this);
         recyclerViewForAllQuestions.setAdapter(recyclerViewAdapter);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setSelectedItemId(R.id.homePage);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.homePage:
+                    intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profilePage:
+                    intent = new Intent(this, ProfileActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
+        });
 
     }
 

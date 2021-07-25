@@ -37,7 +37,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
                     overridePendingTransition(0, 0);
                     return true;
                 case R.id.profilePage:
-                    intent = new Intent(this, MainActivity.class);
+                    intent = new Intent(this, ProfileActivity.class);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
