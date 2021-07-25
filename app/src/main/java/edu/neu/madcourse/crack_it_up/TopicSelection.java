@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 public class TopicSelection extends AppCompatActivity implements RecyclerViewAdapterLearnTopicsSelection.TopicListener{
@@ -20,6 +22,29 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_selection);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setSelectedItemId(R.id.homePage);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.homePage:
+                    intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profilePage:
+                    intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
+        });
+
         username = getIntent().getStringExtra("username");
         objective = getIntent().getStringExtra("objective");
         topicCards = getTopicsFromFirebase();
