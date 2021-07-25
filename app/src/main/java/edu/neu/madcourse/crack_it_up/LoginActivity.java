@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,12 +22,20 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
+    FirebaseAuth fAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        fAuth = FirebaseAuth.getInstance();
+        //if user is already logged in, direct to main activity
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
+            finish();
+        }
     }
 
     // called upon clicking Login button
