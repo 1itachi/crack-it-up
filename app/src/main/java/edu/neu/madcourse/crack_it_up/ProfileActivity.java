@@ -5,15 +5,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private String username;
+    private Button logout;
+
 
     //This should handle the device check to ask for login
     @Override
@@ -21,6 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         username = getIntent().getStringExtra("username");
+
+        logout = findViewById(R.id.logout);
 
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(username);
@@ -50,6 +57,15 @@ public class ProfileActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                finish();
+            }
         });
 
     }
