@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class HomeScreenActivity extends AppCompatActivity {
     private String username;
 
@@ -15,6 +17,26 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homescreen);
 
         username = getIntent().getStringExtra("USERNAME");
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.homePage:
+                    intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profilePage:
+                    intent = new Intent(this, ProfileActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
+        });
     }
 
     public void onClickLearnButton(View view) {

@@ -1,11 +1,14 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,27 @@ public class BehavioralQuestionRecordActivity extends AppCompatActivity{
 
         questionTextView = findViewById(R.id.questionTextView);
         questionTextView.setText(questionText);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.homePage:
+                    intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profilePage:
+                    intent = new Intent(this, ProfileActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
+        });
+
     }
 
 }

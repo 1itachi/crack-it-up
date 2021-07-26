@@ -2,6 +2,7 @@ package edu.neu.madcourse.crack_it_up;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,9 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
 
         username = getIntent().getStringExtra("username");
         topicName = getIntent().getStringExtra("TOPIC_NAME");
+
+        TextView topicTextView = findViewById(R.id.topicTextView);
+        topicTextView.setText(topicName);
 
         questionsCards = getQuestionsFromFirebase();
 

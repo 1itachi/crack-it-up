@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("USERNAME");
 
         logout = findViewById(R.id.logout);
 
