@@ -11,11 +11,13 @@
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginBottom="446dp"
         android:fontFamily="serif-monospace"
         android:text="Crack it up!"
         android:textColor="@color/white"
         android:textSize="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,13 +54,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:hint="@string/password_prompt"
-        app:endIconMode="password_toggle"
-
         app:boxBackgroundMode="outline"
+
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,24 +69,22 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            >
+            android:inputType="textPassword">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:backgroundTint="#FFFFFF"
-        android:text="login"
         android:padding="15dp"
+        android:text="login"
         android:textColor="@android:color/black"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:cornerRadius="10dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +109,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -122,6 +123,19 @@
         app:layout_constraintTop_toBottomOf="@+id/signUpText"
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="186dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="509dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_logo_round" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

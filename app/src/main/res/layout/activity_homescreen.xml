@@ -20,6 +20,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp">
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/app_icon" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +50,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:drawableLeft="@drawable/ic_learn"
                 android:text="@string/learn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -53,7 +64,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:drawableLeft="@drawable/ic_quiz"
                 android:text="@string/quiz"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -67,7 +78,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:drawableLeft="@drawable/ic_behavioral"
                 android:text="@string/behavioral_practice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -81,7 +92,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:drawableLeft="@drawable/ic_interviewtips"
                 android:text="@string/interview_tips"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -95,7 +106,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:drawableLeft="@drawable/ic_resumetips"
                 android:text="@string/resume_tips"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
