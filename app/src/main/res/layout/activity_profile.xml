@@ -49,7 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.507"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                app:srcCompat="@drawable/avatar" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
