@@ -81,7 +81,8 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         System.out.println("Clicked question at position " + questionCard.getQuestionId() + " and " +
                 "question is: " +questionCard.getQuestionText());
 
-        Intent intent = new Intent(this, BehavioralQuestionRecordActivity.class);
+        //Intent intent = new Intent(this, BehavioralQuestionRecordActivity.class);
+        Intent intent = new Intent(this, BehavioralAudioRecordActivity.class);
         intent.putExtra("QUESTION_ID", questionCard.getQuestionId());
         intent.putExtra("QUESTION_TEXT", questionCard.getQuestionText());
         intent.putExtra("TOPIC_NAME", topicName);

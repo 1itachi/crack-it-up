@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_audio_recordings"
+    app:startDestination="@id/recordFragment">
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="edu.neu.madcourse.crack_it_up.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragment_to_audioHistoryFragment"
+            app:destination="@id/audioHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/audioHistoryFragment"
+        android:name="edu.neu.madcourse.crack_it_up.AudioHistoryFragment"
+        android:label="fragment_audio_history"
+        tools:layout="@layout/fragment_audio_history" />
+</navigation>

@@ -36,12 +36,12 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".BehavioralQuestionRecordActivity"
+            android:name=".ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".BehavioralAudioRecordActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
