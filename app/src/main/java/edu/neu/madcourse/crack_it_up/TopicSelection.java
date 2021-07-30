@@ -87,7 +87,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         if (objective.equals("behavioral")) {
             intent = new Intent(this, MainActivity.class);
         } else {
-            intent = new Intent(this, TopicScreenSlide.class);
+            intent = new Intent(this, ScreenSlideActivity.class);
         }
 
         intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
@@ -103,11 +103,11 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         if (objective.equals("behavioral")) {
             intent = new Intent(this, BehavioralQuestionListActivity.class);
         } else if (objective.equals("learn")) {
-            intent = new Intent(this, TopicScreenSlide.class);
+            intent = new Intent(this, ScreenSlideActivity.class);
         } else if (objective.equals("quiz")) {
-            intent = new Intent(this, TopicScreenSlide.class);
+            intent = new Intent(this, ScreenSlideActivity.class);
         } else {
-            intent = new Intent(this, TopicScreenSlide.class);
+            intent = new Intent(this, ScreenSlideActivity.class);
         }
 
         intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
