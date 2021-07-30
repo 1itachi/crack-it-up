@@ -49,16 +49,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recordButton" />
 
-        <ImageView
-            android:id="@+id/recordHistoryImageView"
-            android:layout_width="76dp"
-            android:layout_height="61dp"
-            android:padding="10dp"
+        <ImageButton
+            android:id="@+id/recordHistoryImageButton"
+            android:layout_width="49dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="28dp"
+            android:background="@color/white"
+            android:padding="16dp"
             android:src="@drawable/choose_topic"
             app:layout_constraintBottom_toBottomOf="@+id/recordButton"
             app:layout_constraintStart_toEndOf="@+id/recordButton"
-            app:layout_constraintTop_toTopOf="@+id/recordButton"
-            app:layout_constraintVertical_bias="0.508" />
+            app:layout_constraintTop_toTopOf="@+id/recordButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -45,7 +45,7 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
 
         public RecyclerViewHolder(@NonNull View itemView, TopicListener topicListener) {
             super(itemView);
-            topicButton = itemView.findViewById(R.id.recordButton);
+            topicButton = itemView.findViewById(R.id.topicSelectButton);
             this.topicListener = topicListener;
             itemView.setOnClickListener(this);
 

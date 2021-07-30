@@ -7,7 +7,7 @@
     android:background="@drawable/audio_player_background"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="100dp">
+    app:behavior_peekHeight="80dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
             app:srcCompat="@android:drawable/ic_media_play"
             tools:layout_editor_absoluteX="65dp"
             tools:layout_editor_absoluteY="145dp" />
@@ -35,9 +35,10 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:fontFamily="serif"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
             android:text="Audio Player"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="15sp"
             tools:layout_editor_absoluteX="152dp"
@@ -49,8 +50,9 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:fontFamily="serif"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:paddingRight="15dp"
             android:text="Not Playing"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
@@ -74,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/playImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,13 +85,14 @@
         android:paddingTop="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="15dp"
+        android:background="@drawable/audio_player_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/audioFileNameTextView"
         app:srcCompat="@android:drawable/ic_media_play" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/forwardImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,13 +101,14 @@
         android:paddingTop="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="15dp"
+        android:background="@drawable/audio_player_background"
         app:layout_constraintBottom_toBottomOf="@+id/playImageView"
         app:layout_constraintStart_toEndOf="@+id/playImageView"
         app:layout_constraintTop_toTopOf="@+id/playImageView"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_media_play" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/rewindImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,6 +117,7 @@
         android:paddingTop="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="15dp"
+        android:background="@drawable/audio_player_background"
         app:layout_constraintBottom_toBottomOf="@+id/playImageView"
         app:layout_constraintEnd_toStartOf="@+id/playImageView"
         app:layout_constraintTop_toTopOf="@+id/playImageView"
