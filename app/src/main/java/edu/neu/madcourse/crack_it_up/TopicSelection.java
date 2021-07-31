@@ -3,11 +3,17 @@ package edu.neu.madcourse.crack_it_up;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -18,6 +24,8 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     private RecyclerViewAdapterLearnTopicsSelection recyclerViewAdapter;
     private ArrayList<TopicCard> topicCards = new ArrayList<>();
     private String username, objective;
+    private DatabaseReference mDatabase;
+    private DatabaseReference mTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,9 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
 
         username = getIntent().getStringExtra("username");
         objective = getIntent().getStringExtra("objective");
-        topicCards = getTopicsFromFirebase();
+
+
+       getTopicsFromFirebase();
 
         //recycler view
         recyclerViewForAllTopics = findViewById(R.id.recyclerViewAllTopics);
@@ -60,22 +70,33 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     }
 
     private ArrayList<TopicCard> getTopicsFromFirebase() {
+        //reference to firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //get user reference
+        mTopic = mDatabase.child("topic");
 
-        ArrayList<TopicCard> topicCards = new ArrayList<>();
-        topicCards.add(new TopicCard("abc"));
-        topicCards.add(new TopicCard("def"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
-        topicCards.add(new TopicCard("ijk"));
-        topicCards.add(new TopicCard("lmn"));
+        mTopic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                topicCards.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    TopicCard topic = snapshot1.getValue(TopicCard.class);
+
+                    if (objective.equals("behavioral") && topic.getType().equals("behavioral")) {
+
+                        topicCards.add(topic);
+
+                    }else if(objective.equals("learn") && topic.getType().equals("learn")){
+                        topicCards.add(topic);
+                    }
+                }
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) { }
+        });
+
         return topicCards;
     }
 
@@ -90,7 +111,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, ScreenSlideActivity.class);
         }
 
-        intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
@@ -110,7 +131,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, ScreenSlideActivity.class);
         }
 
-        intent.putExtra("TOPIC_NAME", topicCards.get(position).getTopicName());
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }

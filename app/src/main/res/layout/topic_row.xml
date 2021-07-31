@@ -36,7 +36,7 @@
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="10sp"
                 app:cornerRadius="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

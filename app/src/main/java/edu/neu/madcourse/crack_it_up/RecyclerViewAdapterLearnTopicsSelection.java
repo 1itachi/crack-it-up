@@ -29,7 +29,7 @@ public class RecyclerViewAdapterLearnTopicsSelection extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        String topicName = topic_card_list.get(position).getTopicName();
+        String topicName = topic_card_list.get(position).getName();
         holder.topicButton.setText(topicName);
     }
 
