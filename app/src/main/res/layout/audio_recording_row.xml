@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/audioRowPlayImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <TextView
+        android:id="@+id/audioTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="6dp"
+        android:text="Filename"
+        android:textColor="#007AA3"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/audioRowPlayImageView"
+        app:layout_constraintTop_toTopOf="@+id/audioRowPlayImageView" />
+
+    <TextView
+        android:id="@+id/audioDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Date"
+        android:textColor="#45B5BD"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/audioRowPlayImageView"
+        app:layout_constraintStart_toEndOf="@+id/audioRowPlayImageView"
+        app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
+        app:layout_constraintVertical_bias="0.74" />
+</androidx.constraintlayout.widget.ConstraintLayout>

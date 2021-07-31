@@ -6,10 +6,17 @@
     tools:context=".AudioHistoryFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAudioHistory"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="100dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAudioHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/play_audio_panel" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

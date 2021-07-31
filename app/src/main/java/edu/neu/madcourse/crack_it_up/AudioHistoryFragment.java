@@ -2,57 +2,67 @@ package edu.neu.madcourse.crack_it_up;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AudioHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AudioHistoryFragment extends Fragment {
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.io.File;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapterAudioHistory.RecordingListener{
+    private ConstraintLayout mediaPlayer;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private File[] audioFiles;
+    private File audioDirectory;
+    String audioFilePath;
+
+    private RecyclerView recyclerViewAudioHistory;
+    private RecyclerViewAdapterAudioHistory recyclerViewAdapterAudioHistory;
 
     public AudioHistoryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AudioHistoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AudioHistoryFragment newInstance(String param1, String param2) {
-        AudioHistoryFragment fragment = new AudioHistoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        audioFiles = getAllAudioFiles();
+
+        mediaPlayer = view.findViewById(R.id.playAudioPanel);
+        bottomSheetBehavior = BottomSheetBehavior.from(mediaPlayer);
+        recyclerViewAudioHistory = view.findViewById(R.id.recyclerViewAudioHistory);
+
+        recyclerViewAdapterAudioHistory = new RecyclerViewAdapterAudioHistory(audioFiles, this);
+        recyclerViewAudioHistory.setHasFixedSize(true);
+        recyclerViewAudioHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewAudioHistory.setAdapter(recyclerViewAdapterAudioHistory);
+
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    private File[] getAllAudioFiles() {
+        audioFilePath = getActivity().getExternalFilesDir("/").getAbsolutePath();
+        audioDirectory = new File(audioFilePath);
+        return audioDirectory.listFiles();
     }
 
     @Override
@@ -60,5 +70,15 @@ public class AudioHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_audio_history, container, false);
+    }
+
+    @Override
+    public void onAudioClick(int position) {
+        System.out.println("Recording row clicked");
+    }
+
+    @Override
+    public void onPlayButtonClick(int position) {
+        System.out.println("Play button clicked");
     }
 }
