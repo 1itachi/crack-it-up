@@ -111,6 +111,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         }
 
         intent.putExtra("TOPIC_ID", topicCards.get(position).getTopicId());
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
@@ -131,6 +132,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         }
 
         intent.putExtra("TOPIC_ID", topicCards.get(position).getTopicId());
+        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
