@@ -86,7 +86,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
 
                         topicCards.add(topic);
 
-                    }else if(objective.equals("learn") && topic.getType().equals("learn")){
+                    }else if( (objective.equals("learn") || objective.equals("quiz")) && topic.getType().equals("learn")){
                         topicCards.add(topic);
                     }
                 }
