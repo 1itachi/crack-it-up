@@ -69,7 +69,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         recyclerViewForAllTopics.setAdapter(recyclerViewAdapter);
     }
 
-    private ArrayList<TopicCard> getTopicsFromFirebase() {
+    private void getTopicsFromFirebase() {
         //reference to firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //get user reference
@@ -97,7 +97,6 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             public void onCancelled(@NonNull  DatabaseError error) { }
         });
 
-        return topicCards;
     }
 
     @Override
@@ -111,7 +110,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, ScreenSlideActivity.class);
         }
 
-        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
+        intent.putExtra("TOPIC_ID", topicCards.get(position).getTopicId());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
@@ -131,7 +130,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             intent = new Intent(this, ScreenSlideActivity.class);
         }
 
-        intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
+        intent.putExtra("TOPIC_ID", topicCards.get(position).getTopicId());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
