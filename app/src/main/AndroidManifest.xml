@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.neu.madcourse.crack_it_up">
+    package="edu.neu.madcourse.crack_it_up" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +12,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CrackItUp">
-        <activity android:name=".ScreenSlideActivity"></activity>
+        android:theme="@style/Theme.CrackItUp" >
+        <activity
+            android:name=".InterviewTips"
+            android:exported="true" />
+        <activity
+            android:name=".ResumeTips"
+            android:exported="true" />
+        <activity android:name=".ScreenSlideActivity" />
         <activity android:name=".Signup" />
         <activity android:name=".HomeScreenActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,23 +32,23 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".TopicSelection"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".BehavioralQuestionListActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".ProfileActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".BehavioralAudioRecordActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <meta-data
             android:name="preloaded_fonts"

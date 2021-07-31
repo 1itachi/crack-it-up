@@ -68,10 +68,21 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void onClickInterviewTipsButton(View view) {
         System.out.println("CLicked Interview tips button");
+
+        Intent intent = new Intent(this, InterviewTips.class);
+        intent.putExtra("objective", "interview tips");
+        intent.putExtra("username", username);
+        startActivity(intent);
+
     }
 
     public void onClickResumeTipsButton(View view) {
         System.out.println("CLicked Resume Tips button");
+
+        Intent intent = new Intent(this, ResumeTips.class);
+        intent.putExtra("objective", "resume tips");
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 
 }
