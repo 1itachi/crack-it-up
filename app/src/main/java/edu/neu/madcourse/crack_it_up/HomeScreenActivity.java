@@ -54,7 +54,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     public void onClickQuizButton(View view) {
         System.out.println("CLicked Quiz button");
 
-        Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent = new Intent(this, TopicSelection.class);
         intent.putExtra("objective", "quiz");
         intent.putExtra("username", username);
         startActivity(intent);

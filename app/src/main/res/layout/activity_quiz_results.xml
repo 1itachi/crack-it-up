@@ -7,6 +7,7 @@
     android:background="@color/teal_200"
     tools:context=".QuizResults">
 
+
     <ImageView
         android:id="@+id/congratulationsIcon"
         android:layout_width="match_parent"
@@ -69,3 +70,4 @@
         android:layout_margin="20dp"/>
 
 </RelativeLayout>
+

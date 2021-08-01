@@ -106,7 +106,10 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         Intent intent;
         if (objective.equals("behavioral")) {
             intent = new Intent(this, MainActivity.class);
-        } else {
+        } else if (objective.equals("quiz")) {
+            intent = new Intent(this, QuizActivity.class);
+        }
+        else {
             intent = new Intent(this, ScreenSlideActivity.class);
         }
 

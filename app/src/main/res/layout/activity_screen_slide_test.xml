@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/teal_200"
+    android:background="#45B5BD"
     tools:context=".QuizActivity">
 
     <RelativeLayout
@@ -35,30 +35,6 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/ic_timer"/>
-
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="00:59"
-                android:textColor="#000000"/>
-
-        </LinearLayout>
     </RelativeLayout>
 
     <TextView
