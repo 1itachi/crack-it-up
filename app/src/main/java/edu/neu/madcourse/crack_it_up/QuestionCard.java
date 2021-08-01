@@ -1,21 +1,31 @@
 package edu.neu.madcourse.crack_it_up;
 
 public class QuestionCard {
-    private int questionId;
+    private String questionId;
     private String questionText;
+    private String idealAnswer;
 
     public QuestionCard(){}
 
-    public QuestionCard(int questionId, String questionText) {
-        this.questionId = questionId;
-        this.questionText = questionText;
+    public String getIdealAnswer() {
+        return idealAnswer;
     }
 
-    public int getQuestionId() {
+    public void setIdealAnswer(String idealAnswer) {
+        this.idealAnswer = idealAnswer;
+    }
+
+    public QuestionCard(String questionId, String questionText, String idealAnswer) {
+        this.questionId = questionId;
+        this.questionText = questionText;
+        this.idealAnswer = idealAnswer;
+    }
+
+    public String getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(int questionId) {
+    public void setQuestionId(String questionId) {
         this.questionId = questionId;
     }
 

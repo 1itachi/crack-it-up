@@ -4,12 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -20,6 +26,8 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
     private RecyclerView.LayoutManager recyclerViewLayoutManger;
     private RecyclerViewAdapterQuestionsForTopic recyclerViewAdapter;
     private ArrayList<QuestionCard> questionsCards = new ArrayList<>();
+    private DatabaseReference mDatabase;
+    private DatabaseReference mQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +40,7 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         TextView topicTextView = findViewById(R.id.topicTextView);
         topicTextView.setText(topicName);
 
-        questionsCards = getQuestionsFromFirebase();
+        getQuestionsFromFirebase();
 
         //recycler view
         recyclerViewForAllQuestions = findViewById(R.id.recyclerViewAllQuestions);
@@ -66,13 +74,29 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
 
     }
 
-    private ArrayList<QuestionCard> getQuestionsFromFirebase() {
-        ArrayList<QuestionCard> questionCards = new ArrayList<>();
+    private void getQuestionsFromFirebase() {
+        //reference to firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //get topic id
+        String topicId = getIntent().getStringExtra("TOPIC_ID");
+        //get question reference
+        mQuestion = mDatabase.child("behavioralQuestion").child(topicId);
 
-        for (int i=1; i <= 20; i++) {
-            questionCards.add(new QuestionCard(i, "question example test abc def ijk lmn pqr"+i));
-        }
-        return questionCards;
+        mQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                questionsCards.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    QuestionCard card = snapshot1.getValue(QuestionCard.class);
+                    questionsCards.add(card);
+                }
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
     }
 
     @Override
@@ -85,6 +109,7 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         Intent intent = new Intent(this, BehavioralAudioRecordActivity.class);
         intent.putExtra("QUESTION_ID", questionCard.getQuestionId());
         intent.putExtra("QUESTION_TEXT", questionCard.getQuestionText());
+        intent.putExtra("ANSWER", questionCard.getIdealAnswer());
         intent.putExtra("TOPIC_NAME", topicName);
         intent.putExtra("USERNAME", username);
         startActivity(intent);
@@ -92,7 +117,7 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
 
     @Override
     public void onHistoricResponseButtonClick(int position) {
-        int questionId = questionsCards.get(position).getQuestionId();
+        String questionId = questionsCards.get(position).getQuestionId();
         System.out.println("Clicked history button for question id " + questionId);
     }
 }

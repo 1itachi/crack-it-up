@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BehavioralAudioRecordActivity extends AppCompatActivity{
-    private String username, topicName, questionText;
+    private String username, topicName, questionText, answer;
     private TextView topicNameTextView, questionTextView;
     private int questionId;
     private Button exampleAnswerButton;
@@ -25,6 +25,7 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
         username = getIntent().getStringExtra("USERNAME");
         topicName = getIntent().getStringExtra("TOPIC_NAME");
         questionText = getIntent().getStringExtra("QUESTION_TEXT");
+        answer = getIntent().getStringExtra("ANSWER");
       //questionId = Integer.parseInt(getIntent().getStringExtra("QUESTION_ID"));
 
         topicNameTextView = findViewById(R.id.behavioralTopicTextView);
@@ -38,15 +39,15 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
         exampleAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialogExampleAnswer();
+                openDialogExampleAnswer(answer);
             }
         });
 
     }
 
-    private void openDialogExampleAnswer() {
+    private void openDialogExampleAnswer(String answer) {
         Bundle args = new Bundle();
-        args.putString("answer", "This is a sample answer");
+        args.putString("answer", answer);
 
         BehavioralExampleAnswerDialog dialog = new BehavioralExampleAnswerDialog();
         dialog.setArguments(args);
