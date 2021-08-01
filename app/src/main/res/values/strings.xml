@@ -26,4 +26,8 @@
     <string name="record_audio_answer">Long press to record Audio Answer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playing">Playing</string>
+    <string name="paused">Paused</string>
+    <string name="finished">Finished</string>
+    <string name="stopped">Stopped</string>
 </resources>

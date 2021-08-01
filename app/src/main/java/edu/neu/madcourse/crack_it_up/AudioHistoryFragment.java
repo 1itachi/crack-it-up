@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -34,7 +36,10 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
 
     private MediaPlayer mediaPlayerForAudioRecordings;
     private boolean isCurrentlyPlaying;
-    private File audioFileCurrentlyPlaying;
+    private File audioFileCurrentlyPlaying = null;
+    private SeekBar mediaPlayerSeekbar;
+    private Handler seekBarHandler;
+    private Runnable syncSeekBar;
 
     private ImageButton playButton, rewindButton, forwardButton;
     private TextView mediaPlayerHeader, mediaPlayerFileNameCurrentlyPlaying;
@@ -49,6 +54,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
         super.onViewCreated(view, savedInstanceState);
         audioFiles = getAllAudioFiles();
 
+        mediaPlayerSeekbar = view.findViewById(R.id.seekBar);
         playButton = view.findViewById(R.id.playImageView);
         rewindButton = view.findViewById(R.id.rewindImageView);
         forwardButton = view.findViewById(R.id.forwardImageView);
@@ -78,11 +84,73 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
 
             }
         });
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCurrentlyPlaying) {
+                    pauseAudio();
+                } else {
+                    if (audioFileCurrentlyPlaying != null) {
+                        resumeAudio();
+                    }
+                }
+            }
+        });
+
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCurrentlyPlaying) {
+                    pauseAudio();
+                    int progress = mediaPlayerSeekbar.getProgress();
+                    System.out.println("Current progress");
+                    progress += 200;
+                    mediaPlayerForAudioRecordings.seekTo(progress);
+                    resumeAudio();
+                }
+            }
+        });
+
+        rewindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCurrentlyPlaying) {
+                    pauseAudio();
+                    int progress = mediaPlayerSeekbar.getProgress();
+                    System.out.println("Current progress");
+                    progress -= 200;
+                    mediaPlayerForAudioRecordings.seekTo(progress);
+                    resumeAudio();
+                }
+            }
+        });
+
+        mediaPlayerSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                pauseAudio();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                mediaPlayerForAudioRecordings.seekTo(progress);
+                resumeAudio();
+            }
+        });
     }
 
     private File[] getAllAudioFiles() {
+        BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
+        String questionId = activity.getQuestionId();
         audioFilePath = getActivity().getExternalFilesDir("/").getAbsolutePath();
-        audioDirectory = new File(audioFilePath);
+        audioDirectory = new File(audioFilePath + "/" + questionId);
         return audioDirectory.listFiles();
     }
 
@@ -97,22 +165,24 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     public void onAudioClick(File file, int position) {
         System.out.println("Recording row clicked");
         System.out.println("Playing " + file.getName());
-        mediaPlayerHeader.setText("Finished");
+        mediaPlayerHeader.setText(R.string.playing);
 
-
+        audioFileCurrentlyPlaying = file;
         if (isCurrentlyPlaying) {
             stopAudioOnMediaPlayer();
             playAudioOnMediaPlayer(audioFileCurrentlyPlaying);
         } else {
-            audioFileCurrentlyPlaying = file;
             System.out.println("Playing " + audioFileCurrentlyPlaying.getName());
             playAudioOnMediaPlayer(audioFileCurrentlyPlaying);
         }
     }
 
     private void stopAudioOnMediaPlayer() {
-        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_play_filled_circle));
+        mediaPlayerHeader.setText(R.string.stopped);
         isCurrentlyPlaying = false;
+        mediaPlayerForAudioRecordings.stop();
+        seekBarHandler.removeCallbacks(syncSeekBar);
     }
 
     private void playAudioOnMediaPlayer(File audioFile) {
@@ -128,21 +198,58 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
         }
         isCurrentlyPlaying = true;
 
-        mediaPlayerHeader.setText("Playing");
-        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.record));
+        mediaPlayerHeader.setText(R.string.playing);
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_pause_circle_filled));
         mediaPlayerFileNameCurrentlyPlaying.setText(audioFileCurrentlyPlaying.getName());
+
+        mediaPlayerSeekbar.setMax(mediaPlayerForAudioRecordings.getDuration());
+        seekBarHandler = new Handler();
+        updateRunnable();
+        seekBarHandler.postDelayed(syncSeekBar, 0);
 
         mediaPlayerForAudioRecordings.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 stopAudioOnMediaPlayer();
-                mediaPlayerHeader.setText("Finished");
+                mediaPlayerHeader.setText(R.string.finished);
+                mediaPlayerSeekbar.setProgress(mediaPlayerForAudioRecordings.getDuration());
             }
         });
     }
 
+    private void updateRunnable() {
+        syncSeekBar = new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayerSeekbar.setProgress(mediaPlayerForAudioRecordings.getCurrentPosition());
+                seekBarHandler.postDelayed(this, 500);
+            }
+        };
+    }
+
     @Override
-    public void onPlayButtonClick(File file, int position) {
-        System.out.println("Play button clicked");
+    public void onStop() {
+        super.onStop();
+        if(isCurrentlyPlaying) {
+            stopAudioOnMediaPlayer();
+        }
+    }
+
+    private void pauseAudio() {
+        mediaPlayerForAudioRecordings.pause();
+        mediaPlayerHeader.setText(R.string.paused);
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_play_filled_circle));
+        seekBarHandler.removeCallbacks(syncSeekBar);
+        isCurrentlyPlaying = false;
+    }
+
+    private void resumeAudio() {
+        mediaPlayerForAudioRecordings.start();
+        mediaPlayerHeader.setText(R.string.playing);
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_pause_circle_filled));
+        isCurrentlyPlaying = true;
+
+        updateRunnable();
+        seekBarHandler.postDelayed(syncSeekBar, 0);
     }
 }

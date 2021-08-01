@@ -114,10 +114,4 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
-
-    @Override
-    public void onHistoricResponseButtonClick(int position) {
-        String questionId = questionsCards.get(position).getQuestionId();
-        System.out.println("Clicked history button for question id " + questionId);
-    }
 }

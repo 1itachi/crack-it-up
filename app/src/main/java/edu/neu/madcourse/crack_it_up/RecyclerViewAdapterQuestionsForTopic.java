@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,7 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView questionTextView;
-        private Button historicResponseButton;
+        private ImageView historicResponseButton;
         private QuestionListener questionListener;
 
         public RecyclerViewHolder(@NonNull View itemView, QuestionListener questionListener) {
@@ -53,13 +54,6 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
             historicResponseButton = itemView.findViewById(R.id.historicResponseButton);
             this.questionListener = questionListener;
             itemView.setOnClickListener(this);
-
-            historicResponseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    questionListener.onHistoricResponseButtonClick(getAdapterPosition());
-                }
-            });
         }
 
         @Override
@@ -70,7 +64,5 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
 
     public interface QuestionListener{
         void onQuestionClick(int position);
-
-        void onHistoricResponseButtonClick(int position);
     }
 }

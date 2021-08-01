@@ -27,9 +27,10 @@
             android:layout_weight="4"
             android:paddingTop="30dp"
             android:paddingBottom="30dp"
-            app:srcCompat="@android:drawable/ic_media_play"
             tools:layout_editor_absoluteX="65dp"
-            tools:layout_editor_absoluteY="145dp" />
+            tools:layout_editor_absoluteY="145dp"
+            android:src="@drawable/ic_music_note"
+            />
 
         <TextView
             android:id="@+id/playerHeaderName"
@@ -69,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="serif"
-        android:text="Rec1"
+        android:text=""
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
@@ -80,8 +81,8 @@
 
     <ImageButton
         android:id="@+id/playImageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
@@ -92,7 +93,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/audioFileNameTextView"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        android:src="@drawable/ic_play_filled_circle"
+        />
 
     <ImageButton
         android:id="@+id/forwardImageView"
@@ -108,7 +110,8 @@
         app:layout_constraintStart_toEndOf="@+id/playImageView"
         app:layout_constraintTop_toTopOf="@+id/playImageView"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        android:src="@drawable/ic_fast_forward"
+        />
 
     <ImageButton
         android:id="@+id/rewindImageView"
@@ -124,13 +127,15 @@
         app:layout_constraintEnd_toStartOf="@+id/playImageView"
         app:layout_constraintTop_toTopOf="@+id/playImageView"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        android:src="@drawable/ic_fast_rewind"
+        />
 
 
     <SeekBar
+        android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

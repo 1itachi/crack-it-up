@@ -60,7 +60,7 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
             playImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recordingListener.onPlayButtonClick(audioFile, getAdapterPosition());
+                    recordingListener.onAudioClick(audioFile, getAdapterPosition());
                 }
             });
         }
@@ -73,7 +73,5 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
 
     public interface RecordingListener{
         void onAudioClick(File file, int position);
-
-        void onPlayButtonClick(File file, int position);
     }
 }

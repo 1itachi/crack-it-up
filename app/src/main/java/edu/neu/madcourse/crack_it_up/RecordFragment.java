@@ -1,6 +1,8 @@
 package edu.neu.madcourse.crack_it_up;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +38,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     private ImageButton recordingListButton;
     private MaterialButton recordButton;
     private boolean currentlyRecording = false;
-    private String recordPermission = Manifest.permission.RECORD_AUDIO, audioFilePath, audioFileName;
+    private String recordPermission = Manifest.permission.RECORD_AUDIO, audioFilePath, audioFileName, questionId;
     private int permissionCode = 1;
     private MediaRecorder mediaRecorder;
     private Chronometer chronometer;
@@ -61,6 +65,9 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         recordButton.setOnClickListener(this);
         chronometer = view.findViewById(R.id.audio_record_timer);
         recordingFileName = view.findViewById(R.id.fileNameTextView);
+
+        BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
+        questionId = activity.getQuestionId();
     }
 
 
@@ -68,7 +75,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recordHistoryImageButton:
-                navController.navigate(R.id.action_recordFragment_to_audioHistoryFragment);
+                if (currentlyRecording) {
+                    alertUser();
+                } else {
+                    navController.navigate(R.id.action_recordFragment_to_audioHistoryFragment);
+                }
                 break;
             case R.id.recordButton:
                 System.out.println("User clicked record button");
@@ -83,7 +94,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                     if (hasPermission()) {
                         System.out.println("Starting the recording");
                         startRecording();
-                        recordButton.setIcon(getResources().getDrawable(R.drawable.app_icon, null));
+                        recordButton.setIcon(getResources().getDrawable(R.drawable.ic_stop, null));
                         currentlyRecording = true;
                     }
                 }
@@ -92,8 +103,27 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void alertUser() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("Answer is still recording");
+        alertDialog.setMessage("Are you sure you want to stop the recording and move to the recording history screen");
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                navController.navigate(R.id.action_recordFragment_to_audioHistoryFragment);
+                currentlyRecording = false;
+            }
+        });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
+        alertDialog.create();
+        alertDialog.show();
+    }
+
     private void startRecording() {
         audioFilePath = getActivity().getExternalFilesDir("/").getAbsolutePath();
+        createFolderForQuestionId();
+
+        System.out.println("Audio file path " + audioFilePath);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.US);
         Date now = new Date();
         audioFileName = "Recording_" + formatter.format(now) + ".3gp";
@@ -102,7 +132,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setOutputFile(audioFilePath + "/" + audioFileName);
+        mediaRecorder.setOutputFile(audioFilePath + "/" + questionId + "/" + audioFileName);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
@@ -114,6 +144,23 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
         mediaRecorder.start();
+    }
+
+    private void createFolderForQuestionId() {
+        String dirPath = getActivity().getExternalFilesDir("/").getAbsolutePath() + "/" + questionId;
+        File projDir = new File(dirPath);
+
+        boolean success = false;
+        if (!projDir.exists()) {
+            success = projDir.mkdirs();
+        } else {
+            success= true;
+        }
+
+        if(!success) {
+            System.out.println("Error creating storage folder for questionId");
+            throw  new RuntimeException();
+        }
     }
 
     private void stopRecording() {
@@ -132,6 +179,14 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             System.out.println("App does not have permission");
             ActivityCompat.requestPermissions(getActivity(), new String[] {recordPermission}, permissionCode);
             return false;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(currentlyRecording) {
+            stopRecording();
         }
     }
 }
