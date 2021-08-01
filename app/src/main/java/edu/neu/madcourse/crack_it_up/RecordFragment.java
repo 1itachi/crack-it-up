@@ -65,9 +65,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         recordButton.setOnClickListener(this);
         chronometer = view.findViewById(R.id.audio_record_timer);
         recordingFileName = view.findViewById(R.id.fileNameTextView);
-
-        BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
-        questionId = activity.getQuestionId();
     }
 
 
@@ -75,10 +72,20 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.recordHistoryImageButton:
-                if (currentlyRecording) {
-                    alertUser();
+                BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
+                String questionId = activity.getQuestionId();
+                String filePath = getActivity().getExternalFilesDir("/").getAbsolutePath();
+                File audioDirectory = new File(filePath + "/" + questionId);
+                File[] audioFiles = audioDirectory.listFiles();
+
+                if (audioFiles == null || audioFiles.length==0) {
+                    alertUserNoRecordings();
                 } else {
-                    navController.navigate(R.id.action_recordFragment_to_audioHistoryFragment);
+                    if (currentlyRecording) {
+                        alertUser();
+                    } else {
+                        navController.navigate(R.id.action_recordFragment_to_audioHistoryFragment);
+                    }
                 }
                 break;
             case R.id.recordButton:
@@ -101,6 +108,14 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    private void alertUserNoRecordings() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("No recordings");
+        alertDialog.setMessage("There are no recordings yet, click on the mic button to start recording");
+        alertDialog.create();
+        alertDialog.show();
     }
 
     private void alertUser() {
@@ -147,6 +162,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     }
 
     private void createFolderForQuestionId() {
+        BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
+        questionId = activity.getQuestionId();
         String dirPath = getActivity().getExternalFilesDir("/").getAbsolutePath() + "/" + questionId;
         File projDir = new File(dirPath);
 

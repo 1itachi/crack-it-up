@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+
 public class BehavioralAudioRecordActivity extends AppCompatActivity{
     private String username, topicName, questionText, answer, questionId;
     private TextView topicNameTextView, questionTextView;
     private Button exampleAnswerButton;
+    private File[] audioFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,16 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
         exampleAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialogExampleAnswer(answer);
+                String questionId = getQuestionId();
+                String audioFilePath = getExternalFilesDir("/").getAbsolutePath();
+                File audioDirectory = new File(audioFilePath + "/" + questionId);
+                audioFiles = audioDirectory.listFiles();
+
+                if (audioFiles == null || audioFiles.length==0) {
+                    Toast.makeText(BehavioralAudioRecordActivity.this, "Record at least one answer to unlock the history ", Toast.LENGTH_LONG).show();
+                } else {
+                    openDialogExampleAnswer(answer);
+                }
             }
         });
 
@@ -54,7 +67,6 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
     }
 
     public String getQuestionId() {
-//        return questionId;
-        return "bq2";
+        return questionId;
     }
 }
