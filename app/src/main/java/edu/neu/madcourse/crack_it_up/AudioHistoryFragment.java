@@ -1,5 +1,7 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapterAudioHistory.RecordingListener{
     private ConstraintLayout mediaPlayer;
@@ -26,6 +32,14 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     private RecyclerView recyclerViewAudioHistory;
     private RecyclerViewAdapterAudioHistory recyclerViewAdapterAudioHistory;
 
+    private MediaPlayer mediaPlayerForAudioRecordings;
+    private boolean isCurrentlyPlaying;
+    private File audioFileCurrentlyPlaying;
+
+    private ImageButton playButton, rewindButton, forwardButton;
+    private TextView mediaPlayerHeader, mediaPlayerFileNameCurrentlyPlaying;
+
+
     public AudioHistoryFragment() {
         // Required empty public constructor
     }
@@ -34,6 +48,13 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         audioFiles = getAllAudioFiles();
+
+        playButton = view.findViewById(R.id.playImageView);
+        rewindButton = view.findViewById(R.id.rewindImageView);
+        forwardButton = view.findViewById(R.id.forwardImageView);
+        mediaPlayerHeader = view.findViewById(R.id.headerTitle);
+        mediaPlayerFileNameCurrentlyPlaying = view.findViewById(R.id.audioFileNameTextView);
+
 
         mediaPlayer = view.findViewById(R.id.playAudioPanel);
         bottomSheetBehavior = BottomSheetBehavior.from(mediaPlayer);
@@ -73,12 +94,55 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     }
 
     @Override
-    public void onAudioClick(int position) {
+    public void onAudioClick(File file, int position) {
         System.out.println("Recording row clicked");
+        System.out.println("Playing " + file.getName());
+        mediaPlayerHeader.setText("Finished");
+
+
+        if (isCurrentlyPlaying) {
+            stopAudioOnMediaPlayer();
+            playAudioOnMediaPlayer(audioFileCurrentlyPlaying);
+        } else {
+            audioFileCurrentlyPlaying = file;
+            System.out.println("Playing " + audioFileCurrentlyPlaying.getName());
+            playAudioOnMediaPlayer(audioFileCurrentlyPlaying);
+        }
+    }
+
+    private void stopAudioOnMediaPlayer() {
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.play));
+        isCurrentlyPlaying = false;
+    }
+
+    private void playAudioOnMediaPlayer(File audioFile) {
+        mediaPlayerForAudioRecordings = new MediaPlayer();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        try {
+            mediaPlayerForAudioRecordings.setDataSource(audioFileCurrentlyPlaying.getAbsolutePath());
+            mediaPlayerForAudioRecordings.prepare();
+            mediaPlayerForAudioRecordings.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        isCurrentlyPlaying = true;
+
+        mediaPlayerHeader.setText("Playing");
+        playButton.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.record));
+        mediaPlayerFileNameCurrentlyPlaying.setText(audioFileCurrentlyPlaying.getName());
+
+        mediaPlayerForAudioRecordings.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                stopAudioOnMediaPlayer();
+                mediaPlayerHeader.setText("Finished");
+            }
+        });
     }
 
     @Override
-    public void onPlayButtonClick(int position) {
+    public void onPlayButtonClick(File file, int position) {
         System.out.println("Play button clicked");
     }
 }

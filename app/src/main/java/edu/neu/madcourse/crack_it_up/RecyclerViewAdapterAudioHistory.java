@@ -12,8 +12,9 @@ import java.io.File;
 
 public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<RecyclerViewAdapterAudioHistory.RecyclerViewHolder>{
 
-    private File[] audioRecordingList;
+    File[] audioRecordingList;
     private RecordingListener recordingListener;
+    private TimeCalculator timeCalculator;
 
     public RecyclerViewAdapterAudioHistory(File[] audioRecordingList, RecordingListener recordingListener) {
         this.audioRecordingList = audioRecordingList;
@@ -24,15 +25,16 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        timeCalculator = new TimeCalculator();
         View view = layoutInflater.inflate(R.layout.audio_recording_row, parent, false);
         return new RecyclerViewHolder(view, recordingListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        File audioFile = audioRecordingList[position];
+        holder.audioFile = audioRecordingList[position];
         holder.audioTitleTextView.setText(audioRecordingList[position].getName());
-        holder.audioDateTextView.setText(audioRecordingList[position].lastModified() + "");
+        holder.audioDateTextView.setText(timeCalculator.getTimeDifference(audioRecordingList[position].lastModified()) + "");
     }
 
     @Override
@@ -45,6 +47,7 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
         private TextView audioTitleTextView, audioDateTextView;
         private ImageView playImageButton;
         private RecordingListener recordingListener;
+        private File audioFile;
 
         public RecyclerViewHolder(@NonNull View itemView, RecordingListener recordingListener) {
             super(itemView);
@@ -57,20 +60,20 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
             playImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recordingListener.onPlayButtonClick(getAdapterPosition());
+                    recordingListener.onPlayButtonClick(audioFile, getAdapterPosition());
                 }
             });
         }
 
         @Override
         public void onClick(View v) {
-            recordingListener.onAudioClick(getAdapterPosition());
+            recordingListener.onAudioClick(audioFile, getAdapterPosition());
         }
     }
 
     public interface RecordingListener{
-        void onAudioClick(int position);
+        void onAudioClick(File file, int position);
 
-        void onPlayButtonClick(int position);
+        void onPlayButtonClick(File file, int position);
     }
 }
