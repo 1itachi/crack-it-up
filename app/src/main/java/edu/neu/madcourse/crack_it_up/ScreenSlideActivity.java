@@ -54,7 +54,6 @@ public class ScreenSlideActivity extends AppCompatActivity {
         //set the adapter
         sliderAdapter = new SliderAdapter(this, listOfFlashcards);
         mSlideViewPager.setAdapter(sliderAdapter);
-        addDotsIndicator(0);
 
         mSlideViewPager.addOnPageChangeListener(viewListener);
 
@@ -115,21 +114,7 @@ public class ScreenSlideActivity extends AppCompatActivity {
 
     }
 
-    public void addDotsIndicator(int position){
-        mDots = new TextView[3];
-        mDotLayout.removeAllViews();
-        for(int i = 0; i<mDots.length; i++){
-            mDots[i] = new TextView(this);
-            mDots[i].setText(Html.fromHtml("&#83226;"));
-            mDots[i].setTextSize(35);
-            mDots[i].setTextColor(ContextCompat.getColor(this, R.color.colorTransparentWhite));
-            mDotLayout.addView(mDots[i]);
-        }
 
-        if(mDots.length > 0){
-            mDots[position].setTextColor(ContextCompat.getColor(this,R.color.colorWhite));
-        }
-    }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -139,7 +124,6 @@ public class ScreenSlideActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-            addDotsIndicator(position);
             mCurrentPage = position;
             if(position == 0){
                 mNextBtn.setEnabled(true);
