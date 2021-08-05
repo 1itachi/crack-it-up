@@ -51,7 +51,7 @@ public class RecyclerViewAdapterAudioHistory extends RecyclerView.Adapter<Recycl
 
         public RecyclerViewHolder(@NonNull View itemView, RecordingListener recordingListener) {
             super(itemView);
-            audioTitleTextView = itemView.findViewById(R.id.audioTitleTextView);
+            audioTitleTextView = itemView.findViewById(R.id.topicNameQuizProgressTextView);
             audioDateTextView = itemView.findViewById(R.id.audioDateTextView);
             playImageButton = itemView.findViewById(R.id.audioRowPlayImageView);
 

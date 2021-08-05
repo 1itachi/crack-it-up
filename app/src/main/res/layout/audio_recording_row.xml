@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ic_play_circle_teal" />
 
     <TextView
-        android:id="@+id/audioTitleTextView"
+        android:id="@+id/topicNameQuizProgressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -41,6 +41,6 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/audioRowPlayImageView"
         app:layout_constraintStart_toEndOf="@+id/audioRowPlayImageView"
-        app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/topicNameQuizProgressTextView"
         app:layout_constraintVertical_bias="0.74" />
 </androidx.constraintlayout.widget.ConstraintLayout>
