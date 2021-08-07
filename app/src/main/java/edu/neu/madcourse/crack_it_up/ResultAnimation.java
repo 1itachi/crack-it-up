@@ -1,33 +1,48 @@
 package edu.neu.madcourse.crack_it_up;
 
+import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class QuizResults extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.io.Writer;
 
-    private DatabaseReference mDatabase;
+public class ResultAnimation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_results);
+        setContentView(R.layout.activity_result_animation);
+
+        View view = findViewById(R.id.animation);
+        LottieAnimationView lottieAnimationView = (LottieAnimationView) view;
+
 
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtn);
         final TextView correctAnswer = findViewById(R.id.correctAnswers);
 
         final int getCorrectAnswers = getIntent().getIntExtra("percentage", 0);
         final String topicId = getIntent().getStringExtra("topicId");
+
+        if(getCorrectAnswers >= 70){
+            lottieAnimationView.setAnimation(R.raw.congrats);
+        }else{
+            lottieAnimationView.setAnimation(R.raw.sad);
+        }
 
         correctAnswer.setText("You scored " +String.valueOf(getCorrectAnswers) + "%");
 
@@ -41,7 +56,7 @@ public class QuizResults extends AppCompatActivity {
 
         //firebase
         //reference to firebase
-        mDatabase = FirebaseDatabase.getInstance().getReference("quizScores");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("quizScores");
         //set user reference
         mDatabase.child(formattedEmail).child(topicId).setValue(getCorrectAnswers);
 
@@ -49,15 +64,17 @@ public class QuizResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QuizResults.this, QuizActivity.class));
+                startActivity(new Intent(ResultAnimation.this, QuizActivity.class));
                 finish();
             }
         });
     }
 
+
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(QuizResults.this, HomeScreenActivity.class));
+        startActivity(new Intent(ResultAnimation.this, HomeScreenActivity.class));
         finish();
     }
+
 }

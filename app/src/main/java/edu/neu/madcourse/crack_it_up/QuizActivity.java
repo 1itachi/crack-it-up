@@ -177,7 +177,7 @@ public class QuizActivity extends AppCompatActivity {
                 if (selectedOptionByUser.isEmpty()) {
                     Toast.makeText(QuizActivity.this, "Please select an option",Toast.LENGTH_SHORT).show();
                 }else if(b.getText().toString().equals("Submit Quiz")){
-                    Intent intent = new Intent(QuizActivity.this, QuizResults.class);
+                    Intent intent = new Intent(QuizActivity.this, ResultAnimation.class);
                     int size = questionList.size();
                     int finalScore = (int) Math.round(userscore * 100.0/size);
                     intent.putExtra("percentage", finalScore);

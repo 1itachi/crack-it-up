@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackItUp">
-        <activity
-            android:name=".QuizResults"
-            android:exported="true" />
+        <activity android:name=".ResultAnimation"></activity>
         <activity
             android:name=".QuizActivity"
             android:exported="true" />
