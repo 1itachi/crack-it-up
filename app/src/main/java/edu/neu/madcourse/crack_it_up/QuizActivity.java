@@ -232,7 +232,7 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(QuizActivity.this, TopicSelection.class));
+        startActivity(new Intent(QuizActivity.this, HomeScreenActivity.class));
         finish();
     }
 
@@ -256,4 +256,5 @@ public class QuizActivity extends AppCompatActivity {
             option4.setTextColor(Color.WHITE);
         }
     }
+
 }
