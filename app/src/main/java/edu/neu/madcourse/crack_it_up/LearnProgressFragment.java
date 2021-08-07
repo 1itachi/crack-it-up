@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,10 +44,15 @@ public class LearnProgressFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        FirebaseAuth fauth = FirebaseAuth.getInstance();
+        FirebaseUser user = fauth.getCurrentUser();
+        String email = user.getEmail();
+        String formattedEmail = email.replace("@", "").replace(".", "");
+
         //reference to firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mTopic = mDatabase.child("topic");
-        mUserScore = mDatabase.child("quizScores").child("kmmusembgmailcom");
+        mUserScore = mDatabase.child("quizScores").child(formattedEmail);
 
         //fetch data from firebase
         getTopicsFromFirebase();

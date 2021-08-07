@@ -43,7 +43,6 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         setContentView(R.layout.activity_topic_selection);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        captureOrientationChange();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Intent intent;
@@ -80,6 +79,8 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
 
         recyclerViewAdapter = new RecyclerViewAdapterLearnTopicsSelection(topicCards, this);
         recyclerViewForAllTopics.setAdapter(recyclerViewAdapter);
+
+        //captureOrientationChange(); -- makes buttons unclickable
     }
 
     private void getTopicsFromFirebase() {
@@ -157,6 +158,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         SensorEventListener m_sensorEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
+                recyclerViewForAllTopics = findViewById(R.id.recyclerViewAllTopics);
                 if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     recyclerViewLayoutManger = new GridLayoutManager(context, 2);
                 }
@@ -164,6 +166,8 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
                     recyclerViewLayoutManger = new GridLayoutManager(context, 3);
                 }
                 recyclerViewForAllTopics.setLayoutManager(recyclerViewLayoutManger);
+                recyclerViewAdapter = new RecyclerViewAdapterLearnTopicsSelection(topicCards, (RecyclerViewAdapterLearnTopicsSelection.TopicListener) context);
+                recyclerViewForAllTopics.setAdapter(recyclerViewAdapter);
             }
 
             @Override

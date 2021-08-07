@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
+        android:layout_width="160dp"
         android:layout_height="150dp"
         android:layout_marginStart="30dp"
         tools:layout_editor_absoluteX="1dp"
@@ -27,26 +27,20 @@
             tools:layout_editor_absoluteX="12dp"
             tools:layout_editor_absoluteY="33dp">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/topicSelectButton"
-                android:layout_width="150dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/round_back_teal10"
-                android:gravity="center"
-                android:minHeight="100dp"
-                android:text="Topic goes here"
-                android:padding="20dp"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:backgroundTint="#45B5BD"
+                android:text="Dynamic Programming"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                app:cornerRadius="100dp"
+                app:cornerRadius="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
