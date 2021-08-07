@@ -178,7 +178,8 @@ public class QuizActivity extends AppCompatActivity {
                     Intent intent = new Intent(QuizActivity.this, QuizResults.class);
                     int size = questionList.size();
                     int finalScore = (int) Math.round(userscore * 100.0/size);
-                    intent.putExtra("percentage", String.valueOf(finalScore));
+                    intent.putExtra("percentage", finalScore);
+                    intent.putExtra("topicId", topicId);
                     startActivity(intent);
                     finish();
                 }
