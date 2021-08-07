@@ -1,7 +1,14 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,14 +33,17 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     private String username, objective;
     private DatabaseReference mDatabase;
     private DatabaseReference mTopic;
+    Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_topic_selection);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setSelectedItemId(R.id.homePage);
+        captureOrientationChange();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Intent intent;
@@ -56,13 +66,16 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
 
         username = getIntent().getStringExtra("username");
         objective = getIntent().getStringExtra("objective");
-
-
-       getTopicsFromFirebase();
+        getTopicsFromFirebase();
 
         //recycler view
         recyclerViewForAllTopics = findViewById(R.id.recyclerViewAllTopics);
-        recyclerViewLayoutManger = new GridLayoutManager(this, 2);
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerViewLayoutManger = new GridLayoutManager(this, 2);
+        } else {
+            recyclerViewLayoutManger = new GridLayoutManager(this, 3);
+        }
         recyclerViewForAllTopics.setLayoutManager(recyclerViewLayoutManger);
 
         recyclerViewAdapter = new RecyclerViewAdapterLearnTopicsSelection(topicCards, this);
@@ -138,5 +151,29 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
+    }
+
+    private void captureOrientationChange() {
+        SensorEventListener m_sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    recyclerViewLayoutManger = new GridLayoutManager(context, 2);
+                }
+                else {
+                    recyclerViewLayoutManger = new GridLayoutManager(context, 3);
+                }
+                recyclerViewForAllTopics.setLayoutManager(recyclerViewLayoutManger);
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+
+        SensorManager sm = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sm.registerListener(m_sensorEventListener, sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 }

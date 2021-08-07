@@ -8,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".TopicSelection">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
@@ -31,12 +35,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topicTextView">
 
@@ -44,11 +47,13 @@
                 android:id="@+id/recyclerViewAllTopics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -57,7 +62,6 @@
         app:backgroundTint="#FFC807"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
         app:menu="@menu/bottom_navigation_menu"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
