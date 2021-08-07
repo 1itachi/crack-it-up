@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -36,12 +37,14 @@ public class ScreenSlideActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference mCard;
 
-    private String topicId;
+    private String topicId, topicName;
     private ArrayList<FlashCard> listOfFlashcards = new ArrayList<>();
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_screen_slide);
 
         mSlideViewPager = (ViewPager) findViewById(R.id.pager);
@@ -62,6 +65,7 @@ public class ScreenSlideActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //get topic id
         topicId = getIntent().getStringExtra("TOPIC_ID");
+        topicName = getIntent().getStringExtra("TOPIC_NAME");
         //get user reference
         mCard = mDatabase.child("flashcard").child(topicId);
 
@@ -98,7 +102,8 @@ public class ScreenSlideActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button b = (Button) v;
                 if(b.getText().toString().equals("Finish")){
-                    startActivity(new Intent(ScreenSlideActivity.this, HomeScreenActivity.class));
+                    openDialogQuiz();
+//                    startActivity(new Intent(ScreenSlideActivity.this, HomeScreenActivity.class));
                     finish();
                 }
                 mSlideViewPager.setCurrentItem(mCurrentPage + 1);
@@ -114,6 +119,15 @@ public class ScreenSlideActivity extends AppCompatActivity {
 
     }
 
+    private void openDialogQuiz() {
+        Bundle args = new Bundle();
+        args.putString("topicId", topicId);
+        args.putString("topicName", topicName);
+
+        TakeQuizDialog dialog = new TakeQuizDialog(context);
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "take quiz");
+    }
 
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
