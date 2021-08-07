@@ -34,8 +34,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="408dp"
+            android:layout_height="439dp"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -44,13 +44,13 @@
 
             <Button
                 android:id="@+id/learnButton"
-                android:onClick="onClickLearnButton"
-                android:backgroundTint="#007AA3"
-                android:shadowColor="@color/black"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
+                android:backgroundTint="#007AA3"
                 android:drawableLeft="@drawable/ic_learn"
+                android:onClick="onClickLearnButton"
+                android:shadowColor="@color/black"
                 android:text="@string/learn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -59,12 +59,12 @@
 
             <Button
                 android:id="@+id/quizButton"
-                android:onClick="onClickQuizButton"
-                android:backgroundTint="#007AA3"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="#007AA3"
                 android:drawableLeft="@drawable/ic_quiz"
+                android:onClick="onClickQuizButton"
                 android:text="@string/quiz"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -73,12 +73,12 @@
 
             <Button
                 android:id="@+id/behavioralPracticeButton"
-                android:onClick="onClickBehavioralPracticeButton"
-                android:backgroundTint="#007AA3"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="#007AA3"
                 android:drawableLeft="@drawable/ic_behavioral"
+                android:onClick="onClickBehavioralPracticeButton"
                 android:text="@string/behavioral_practice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -87,12 +87,12 @@
 
             <Button
                 android:id="@+id/interviewTipsButton"
-                android:onClick="onClickInterviewTipsButton"
-                android:backgroundTint="#007AA3"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="#007AA3"
                 android:drawableLeft="@drawable/ic_interviewtips"
+                android:onClick="onClickInterviewTipsButton"
                 android:text="@string/interview_tips"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -101,17 +101,31 @@
 
             <Button
                 android:id="@+id/resumeTipsButton"
-                android:onClick="onClickResumeTipsButton"
-                android:backgroundTint="#007AA3"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="#007AA3"
                 android:drawableLeft="@drawable/ic_resumetips"
+                android:onClick="onClickResumeTipsButton"
                 android:text="@string/resume_tips"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/interviewTipsButton" />
+
+            <Button
+                android:id="@+id/resumeTipsButton2"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#007AA3"
+                android:drawableLeft="@drawable/ic_resumetips"
+                android:onClick="onCoverLetterButton"
+                android:text="Cover Letter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resumeTipsButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

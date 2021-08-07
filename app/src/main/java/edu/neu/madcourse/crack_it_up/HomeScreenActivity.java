@@ -109,4 +109,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    public void onCoverLetterButton(View view) {
+        System.out.println("Clicked cover letter");
+    }
 }
