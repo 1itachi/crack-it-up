@@ -1,5 +1,7 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -232,8 +234,19 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(QuizActivity.this, HomeScreenActivity.class));
-        finish();
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Quiz In Progress")
+                .setMessage("Are you sure you want to quit the quiz?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(QuizActivity.this, HomeScreenActivity.class));
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton("No", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void revealAnswer(){
