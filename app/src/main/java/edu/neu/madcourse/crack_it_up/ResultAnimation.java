@@ -64,7 +64,9 @@ public class ResultAnimation extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ResultAnimation.this, QuizActivity.class));
+                Intent intent = new Intent(ResultAnimation.this, TopicSelection.class);
+                intent.putExtra("objective", "quiz");
+                startActivity(intent);
                 finish();
             }
         });
