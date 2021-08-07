@@ -30,9 +30,7 @@ public class RecyclerViewAdapterUserProgress extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        System.out.println(holder.topicTextView.getText());
-        System.out.println(userScores.get(position).getTopicId());
-        holder.topicTextView.setText("" + userScores.get(position).getTopicId());
+        holder.topicTextView.setText("" + userScores.get(position).getTopicName());
         holder.scoreTextView.setText("" + userScores.get(position).getScore() + "%");
     }
 

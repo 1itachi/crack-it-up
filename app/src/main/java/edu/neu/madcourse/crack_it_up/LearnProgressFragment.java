@@ -42,8 +42,8 @@ public class LearnProgressFragment extends Fragment {
 
     private List<UserScore> getQuizScoresForUser() {
         List<UserScore> userScores = new ArrayList<>();
-        userScores.add(new UserScore("topic1Arrays", 70));
-        userScores.add(new UserScore("topic2Strings", 30));
+        userScores.add(new UserScore("topic1Arrays", "Arrays", 70));
+        userScores.add(new UserScore("topic2Strings", "Strings", 30));
         // for every topic user has not attempted  a quiz, give score as -99
 
         return userScores;

@@ -45,7 +45,7 @@ public class BehavioralProgressFragment extends Fragment {
 
     private List<UserScore> getPercentQuestionsCompletedPerTopic() {
         List<UserScore> userScores = new ArrayList<>();
-        userScores.add(new UserScore("topic3ProblemSolving", 20));
+        userScores.add(new UserScore("topic3ProblemSolving", "Problem Solving", 20));
         // for every topic user has not attempted  a quiz, give score as -99
 
         return userScores;
