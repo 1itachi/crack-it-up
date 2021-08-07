@@ -10,6 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +29,10 @@ public class LearnProgressFragment extends Fragment {
 
     private RecyclerView recyclerViewUserProgress;
     private RecyclerViewAdapterUserProgress recyclerViewAdapterUserProgress;
-    private List<UserScore> userScores;
+    private List<UserScore> userScores = new ArrayList<>();
+    private List<TopicCard> topicCards = new ArrayList<>();
+    private DatabaseReference mDatabase;
+    private DatabaseReference mTopic, mUserScore;
 
     public LearnProgressFragment() {
         // Required empty public constructor
@@ -31,7 +41,15 @@ public class LearnProgressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userScores = getQuizScoresForUser();
+
+        //reference to firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mTopic = mDatabase.child("topic");
+        mUserScore = mDatabase.child("quizScores").child("kmmusembgmailcom");
+
+        //fetch data from firebase
+        getTopicsFromFirebase();
+        getUserScoresFromFirebase();
 
         recyclerViewUserProgress = view.findViewById(R.id.recyclerViewUserProgress);
         recyclerViewAdapterUserProgress = new RecyclerViewAdapterUserProgress(userScores);
@@ -40,13 +58,60 @@ public class LearnProgressFragment extends Fragment {
         recyclerViewUserProgress.setAdapter(recyclerViewAdapterUserProgress);
     }
 
-    private List<UserScore> getQuizScoresForUser() {
-        List<UserScore> userScores = new ArrayList<>();
-        userScores.add(new UserScore("topic1Arrays", "Arrays", 70));
-        userScores.add(new UserScore("topic2Strings", "Strings", 30));
-        // for every topic user has not attempted  a quiz, give score as -99
+    private void getUserScoresFromFirebase() {
+        mUserScore.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String topicId;
+                int score;
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    topicId = snapshot1.getKey();
+                    try{
+                        //Integer -> int
+                        System.out.println(snapshot1.getValue());
+                        score = Integer.parseInt(snapshot1.getValue().toString());
+                    } catch (NullPointerException e){
+                        System.out.println(e);
+                        score = -99;
+                    }
 
-        return userScores;
+                    for (UserScore userScore: userScores) {
+                        if(userScore.getTopicId().equals(topicId)) {
+                            userScore.setScore(score);
+                        }
+                    }
+                }
+                recyclerViewAdapterUserProgress.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    private void getTopicsFromFirebase() {
+        mTopic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                topicCards.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    TopicCard topic = snapshot1.getValue(TopicCard.class);
+
+                    if (topic.getType().equals("learn")) {
+                        topicCards.add(topic);
+                    }
+                }
+                for(TopicCard topicCard: topicCards){
+                    UserScore userScore = new UserScore(topicCard.getTopicId(), topicCard.getName(), -99);
+                    userScores.add(userScore);
+                }
+                //getUserScoresFromFirebase();
+                recyclerViewAdapterUserProgress.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
     }
 
     public static LearnProgressFragment newInstance() {

@@ -1,5 +1,6 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,16 @@ public class RecyclerViewAdapterUserProgress extends RecyclerView.Adapter<Recycl
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.topicTextView.setText("" + userScores.get(position).getTopicName());
-        holder.scoreTextView.setText("" + userScores.get(position).getScore() + "%");
+        if(userScores.get(position).getScore() == -99) {
+            holder.scoreTextView.setText("NA");
+            holder.assignmentImage.setImageResource(R.drawable.ic_baseline_assignment);
+        } else {
+            holder.scoreTextView.setText("" + userScores.get(position).getScore() + "%");
+            if(userScores.get(position).getScore() < 70) {
+                holder.assignmentImage.setImageResource(R.drawable.ic_assignmnet_below_threshold);
+            }
+        }
+
     }
 
     @Override
