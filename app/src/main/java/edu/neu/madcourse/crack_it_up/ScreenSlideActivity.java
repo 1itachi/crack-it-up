@@ -48,7 +48,6 @@ public class ScreenSlideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_screen_slide);
 
         mSlideViewPager = (ViewPager) findViewById(R.id.pager);
-        mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
 
         mNextBtn = (Button) findViewById(R.id.next);
         mBackBtn = (Button) findViewById(R.id.previous);

@@ -213,6 +213,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
                 stopAudioOnMediaPlayer();
                 mediaPlayerHeader.setText(R.string.finished);
                 mediaPlayerSeekbar.setProgress(mediaPlayerForAudioRecordings.getDuration());
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         });
     }
