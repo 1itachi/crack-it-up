@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -30,7 +31,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     private File[] audioFiles;
     private File audioDirectory;
     String audioFilePath;
-
+    boolean playFileSelected;
     private RecyclerView recyclerViewAudioHistory;
     private RecyclerViewAdapterAudioHistory recyclerViewAdapterAudioHistory;
 
@@ -53,7 +54,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         audioFiles = getAllAudioFiles();
-
+        playFileSelected = false;
         mediaPlayerSeekbar = view.findViewById(R.id.seekBar);
         playButton = view.findViewById(R.id.playImageView);
         rewindButton = view.findViewById(R.id.rewindImageView);
@@ -74,6 +75,10 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if(newState == BottomSheetBehavior.STATE_EXPANDED && !playFileSelected){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    Toast.makeText(getContext(), "Play a recording!", Toast.LENGTH_SHORT).show();
+                };
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -166,7 +171,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
         System.out.println("Recording row clicked");
         System.out.println("Playing " + file.getName());
         mediaPlayerHeader.setText(R.string.playing);
-
+        playFileSelected = true;
         audioFileCurrentlyPlaying = file;
         if (isCurrentlyPlaying) {
             stopAudioOnMediaPlayer();
@@ -214,6 +219,7 @@ public class AudioHistoryFragment extends Fragment implements RecyclerViewAdapte
                 mediaPlayerHeader.setText(R.string.finished);
                 mediaPlayerSeekbar.setProgress(mediaPlayerForAudioRecordings.getDuration());
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                playFileSelected = false;
             }
         });
     }
