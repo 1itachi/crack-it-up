@@ -26,7 +26,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="32dp"
             android:layout_marginRight="10dp"
-            android:text="Choose a topic to explore"
+            android:text="Choose a topic"
             android:textColor="#007AA3"
             android:textSize="20sp"
             android:textStyle="bold"

@@ -1,5 +1,6 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -36,6 +37,7 @@ public class TakeQuizDialog extends AppCompatDialogFragment {
                         intent.putExtra("TOPIC_ID", topicId);
                         intent.putExtra("TOPIC_NAME", topicName);
                         startActivity(intent);
+                        ((Activity)context).finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -45,6 +47,7 @@ public class TakeQuizDialog extends AppCompatDialogFragment {
                         intent.putExtra("TOPIC_ID", topicId);
                         intent.putExtra("TOPIC_NAME", topicName);
                         startActivity(intent);
+                        ((Activity)context).finish();
                     }
                 });;
         return builder.create();

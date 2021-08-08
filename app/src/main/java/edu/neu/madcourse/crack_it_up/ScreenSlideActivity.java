@@ -104,7 +104,6 @@ public class ScreenSlideActivity extends AppCompatActivity {
                 if(b.getText().toString().equals("Finish")){
                     openDialogQuiz();
 //                    startActivity(new Intent(ScreenSlideActivity.this, HomeScreenActivity.class));
-                    finish();
                 }
                 mSlideViewPager.setCurrentItem(mCurrentPage + 1);
             }

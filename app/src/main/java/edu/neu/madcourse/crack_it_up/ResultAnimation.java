@@ -34,14 +34,17 @@ public class ResultAnimation extends AppCompatActivity {
 
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtn);
         final TextView correctAnswer = findViewById(R.id.correctAnswers);
+        final TextView userMessage = findViewById(R.id.userMessage);
 
         final int getCorrectAnswers = getIntent().getIntExtra("percentage", 0);
         final String topicId = getIntent().getStringExtra("topicId");
 
         if(getCorrectAnswers >= 70){
             lottieAnimationView.setAnimation(R.raw.congrats);
+            userMessage.setText("Well done!");
         }else{
             lottieAnimationView.setAnimation(R.raw.sad);
+            userMessage.setText("Practice again and retry the quiz");
         }
 
         correctAnswer.setText("You scored " +String.valueOf(getCorrectAnswers) + "%");
