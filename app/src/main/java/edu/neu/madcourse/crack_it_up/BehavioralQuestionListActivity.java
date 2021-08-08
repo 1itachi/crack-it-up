@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BehavioralQuestionListActivity extends AppCompatActivity implements RecyclerViewAdapterQuestionsForTopic.QuestionListener{
     private String username, topicName;
@@ -28,11 +30,13 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
     private ArrayList<QuestionCard> questionsCards = new ArrayList<>();
     private DatabaseReference mDatabase;
     private DatabaseReference mQuestion;
+    private List<String> userAnsweredQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_behavioral_question_list);
+        getUserAnsweredQuestions();
 
         username = getIntent().getStringExtra("username");
         topicName = getIntent().getStringExtra("TOPIC_NAME");
@@ -47,7 +51,7 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         recyclerViewLayoutManger = new LinearLayoutManager(this);
         recyclerViewForAllQuestions.setLayoutManager(recyclerViewLayoutManger);
 
-        recyclerViewAdapter = new RecyclerViewAdapterQuestionsForTopic(questionsCards, this);
+        recyclerViewAdapter = new RecyclerViewAdapterQuestionsForTopic(questionsCards, userAnsweredQuestions, this);
         recyclerViewForAllQuestions.setAdapter(recyclerViewAdapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -112,6 +116,20 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         intent.putExtra("ANSWER", questionCard.getIdealAnswer());
         intent.putExtra("TOPIC_NAME", topicName);
         intent.putExtra("USERNAME", username);
+        if(userAnsweredQuestions.contains(questionCard.getQuestionId())){
+            intent.putExtra("ATTEMPTED_BY_USER", "true");
+        } else {
+            intent.putExtra("ATTEMPTED_BY_USER", "false");
+        }
         startActivity(intent);
+    }
+
+    private void getUserAnsweredQuestions() {
+        String audioFilePath = getExternalFilesDir("/").getAbsolutePath();
+        File audioDirectory = new File(audioFilePath);
+        userAnsweredQuestions = new ArrayList<>();
+        for(File file : audioDirectory.listFiles()){
+            userAnsweredQuestions.add(file.getName());
+        }
     }
 }

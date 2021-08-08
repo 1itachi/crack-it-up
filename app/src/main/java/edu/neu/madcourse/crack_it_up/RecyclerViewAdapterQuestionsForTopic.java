@@ -11,15 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<RecyclerViewAdapterQuestionsForTopic.RecyclerViewHolder>{
 
     private ArrayList<QuestionCard> questionCardList;
     private QuestionListener questionListener;
+    private List<String> userAnsweredQuestions;
 
-    public RecyclerViewAdapterQuestionsForTopic(ArrayList<QuestionCard> questionCardList, QuestionListener questionListener) {
+    public RecyclerViewAdapterQuestionsForTopic(ArrayList<QuestionCard> questionCardList, List<String> userAnsweredQuestions, QuestionListener questionListener) {
         this.questionCardList = questionCardList;
         this.questionListener = questionListener;
+        this.userAnsweredQuestions = userAnsweredQuestions;
     }
 
     @NonNull
@@ -34,7 +37,11 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         String questionText = questionCardList.get(position).getQuestionText();
         holder.questionTextView.setText(questionText);
-        holder.historicResponseButton.setTag(questionCardList.get(position).getQuestionId());
+
+        String questionId = questionCardList.get(position).getQuestionId();
+        if(userAnsweredQuestions.contains(questionId)) {
+            holder.questionCompletedByUserTick.setImageResource(R.drawable.ic_completed);
+        }
     }
 
     @Override
@@ -45,13 +52,13 @@ public class RecyclerViewAdapterQuestionsForTopic extends RecyclerView.Adapter<R
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView questionTextView;
-        private ImageView historicResponseButton;
+        private ImageView questionCompletedByUserTick;
         private QuestionListener questionListener;
 
         public RecyclerViewHolder(@NonNull View itemView, QuestionListener questionListener) {
             super(itemView);
             questionTextView = itemView.findViewById(R.id.questionTextView);
-            historicResponseButton = itemView.findViewById(R.id.historicResponseButton);
+            questionCompletedByUserTick = itemView.findViewById(R.id.historicResponseButton);
             this.questionListener = questionListener;
             itemView.setOnClickListener(this);
         }

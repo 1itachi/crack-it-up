@@ -186,6 +186,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         recordingFileName.setText("Recording stopped, file saved: " + audioFileName);
         mediaRecorder.release();
         mediaRecorder = null;
+        BehavioralAudioRecordActivity activity = (BehavioralAudioRecordActivity) getActivity();
+        activity.setUnlockImage();
     }
 
     private boolean hasPermission() {

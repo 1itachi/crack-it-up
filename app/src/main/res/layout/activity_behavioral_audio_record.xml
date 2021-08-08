@@ -48,6 +48,7 @@
             android:id="@+id/idealAnswerButton"
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:layout_height="35dp"
             android:layout_marginTop="30dp"
             android:backgroundTint="#45B5BD"

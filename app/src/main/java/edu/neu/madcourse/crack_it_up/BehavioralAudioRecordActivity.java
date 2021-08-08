@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.File;
 
 public class BehavioralAudioRecordActivity extends AppCompatActivity{
-    private String username, topicName, questionText, answer, questionId;
+    private String username, topicName, questionText, answer, questionId, attemptedByUser;
     private TextView topicNameTextView, questionTextView;
     private Button exampleAnswerButton;
     private File[] audioFiles;
@@ -30,6 +30,7 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
         questionText = getIntent().getStringExtra("QUESTION_TEXT");
         answer = getIntent().getStringExtra("ANSWER");
         questionId = getIntent().getStringExtra("QUESTION_ID");
+        attemptedByUser = getIntent().getStringExtra("ATTEMPTED_BY_USER");
 
         topicNameTextView = findViewById(R.id.behavioralTopicTextView);
         topicNameTextView.setText(topicName);
@@ -39,6 +40,9 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
 
         // Setting listeners on dialog buttons
         exampleAnswerButton = findViewById(R.id.idealAnswerButton);
+        if(attemptedByUser.equals("true")) {
+            exampleAnswerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_lock_open_24, 0, 0, 0);
+        }
         exampleAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +72,9 @@ public class BehavioralAudioRecordActivity extends AppCompatActivity{
 
     public String getQuestionId() {
         return questionId;
+    }
+
+    public void setUnlockImage() {
+        exampleAnswerButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_lock_open_24, 0, 0, 0);
     }
 }
