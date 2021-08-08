@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +23,11 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 public class ResultAnimation extends AppCompatActivity {
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        username = "empty";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_animation);
 
@@ -72,6 +75,26 @@ public class ResultAnimation extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.homePage:
+                    intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profilePage:
+                    intent = new Intent(this, ProfileActivity.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
         });
     }
 

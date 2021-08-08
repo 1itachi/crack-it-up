@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,12 +45,11 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_screen_slide_test);
+        setContentView(R.layout.activity_quiz);
 
         //set initial score to 0;
         userscore = 0;
 
-        final ImageView backBtn = findViewById(R.id.backBtn);
         final TextView selectedTopicName = findViewById(R.id.topicName);
 
         questions = findViewById(R.id.questions);
@@ -191,13 +189,6 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(QuizActivity.this, TopicSelection.class));
-                finish();
-            }
-        });
     }
 
     private void nextQuestion() {
