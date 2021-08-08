@@ -22,7 +22,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:background="#45B5BD"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,9 +33,10 @@
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:text="Back"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:textSize="12sp"
             android:visibility="invisible" />
 
@@ -44,7 +45,8 @@
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@android:color/transparent"
             android:text="Next"
             android:textSize="12sp" />

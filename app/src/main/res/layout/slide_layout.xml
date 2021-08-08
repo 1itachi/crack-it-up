@@ -30,6 +30,7 @@
         android:textAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
         android:textColor="#45B5BD"
         android:textSize="18sp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
