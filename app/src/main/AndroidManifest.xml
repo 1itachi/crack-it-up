@@ -32,6 +32,9 @@
             android:name=".InterviewTips"
             android:exported="true" />
         <activity
+            android:name=".CoverLetterTips"
+            android:exported="true" />
+        <activity
             android:name=".ResumeTips"
             android:exported="true" />
         <activity android:name=".ScreenSlideActivity" />

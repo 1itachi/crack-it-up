@@ -131,5 +131,9 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     public void onCoverLetterButton(View view) {
         System.out.println("Clicked cover letter");
+
+        Intent intent = new Intent(this, CoverLetterTips.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 }
