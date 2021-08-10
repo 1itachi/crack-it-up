@@ -1,6 +1,9 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -31,11 +34,16 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
     private DatabaseReference mDatabase;
     private DatabaseReference mQuestion;
     private List<String> userAnsweredQuestions;
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_behavioral_question_list);
+
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
+
         getUserAnsweredQuestions();
 
         username = getIntent().getStringExtra("username");
@@ -124,6 +132,16 @@ public class BehavioralQuestionListActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
     private void getUserAnsweredQuestions() {
         String audioFilePath = getExternalFilesDir("/").getAbsolutePath();
         File audioDirectory = new File(audioFilePath);

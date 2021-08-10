@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.neu.madcourse.crack_it_up">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrackItUp">
-        <activity android:name=".ResultAnimation"></activity>
+        <receiver
+            android:name=".InternetConnectivity">
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife"/>
+
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ResultAnimation" />
         <activity
             android:name=".QuizActivity"
             android:exported="true" />

@@ -1,6 +1,9 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,11 +16,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeScreenActivity extends AppCompatActivity {
     private String username;
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
+
 
         username = getIntent().getStringExtra("USERNAME");
 
@@ -40,6 +49,17 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
     public void onClickLearnButton(View view) {

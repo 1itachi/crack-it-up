@@ -1,9 +1,12 @@
 package edu.neu.madcourse.crack_it_up;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +38,7 @@ public class QuizActivity extends AppCompatActivity {
     private int currentQuestionPosition = 0;
 
     private String selectedOptionByUser = "";
-
+    BroadcastReceiver broadcastReceiver;
 
     private DatabaseReference mDatabase;
     private DatabaseReference mQuiz;
@@ -47,6 +50,9 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
         //set initial score to 0;
         userscore = 0;
 
@@ -189,6 +195,17 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void nextQuestion() {

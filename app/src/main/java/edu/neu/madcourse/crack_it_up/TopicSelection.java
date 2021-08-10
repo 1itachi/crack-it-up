@@ -1,12 +1,15 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -34,13 +37,15 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     private DatabaseReference mDatabase;
     private DatabaseReference mTopic;
     Context context;
-
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_topic_selection);
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -152,6 +157,17 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         intent.putExtra("TOPIC_NAME", topicCards.get(position).getName());
         intent.putExtra("USERNAME", username);
         startActivity(intent);
+    }
+
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void captureOrientationChange() {

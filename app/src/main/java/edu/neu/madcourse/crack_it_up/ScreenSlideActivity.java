@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -41,12 +44,15 @@ public class ScreenSlideActivity extends AppCompatActivity {
     private ArrayList<FlashCard> listOfFlashcards = new ArrayList<>();
     private Context context;
 
+    BroadcastReceiver broadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_screen_slide);
-
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
         mSlideViewPager = (ViewPager) findViewById(R.id.pager);
 
         mNextBtn = (Button) findViewById(R.id.next);
@@ -115,6 +121,17 @@ public class ScreenSlideActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void openDialogQuiz() {

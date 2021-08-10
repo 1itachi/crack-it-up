@@ -4,7 +4,10 @@ import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -24,13 +27,15 @@ import java.io.Writer;
 
 public class ResultAnimation extends AppCompatActivity {
     String username;
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         username = "empty";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_animation);
-
+        broadcastReceiver = new InternetConnectivity();
+        checkInternet();
         View view = findViewById(R.id.animation);
         LottieAnimationView lottieAnimationView = (LottieAnimationView) view;
 
@@ -98,7 +103,16 @@ public class ResultAnimation extends AppCompatActivity {
         });
     }
 
+    private void checkInternet() {
+        registerReceiver(broadcastReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
     @Override
     public void onBackPressed() {
         startActivity(new Intent(ResultAnimation.this, HomeScreenActivity.class));
