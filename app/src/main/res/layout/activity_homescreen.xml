@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#007AA3"
-                android:drawableLeft="@drawable/ic_resumetips"
+                android:drawableLeft="@drawable/ic_baseline_book_24"
                 android:onClick="onCoverLetterButton"
                 android:text="Cover Letter"
                 app:layout_constraintEnd_toEndOf="parent"

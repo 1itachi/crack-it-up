@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,7 +108,7 @@ public class LearnProgressFragment extends Fragment {
                     }
                 }
                 for(TopicCard topicCard: topicCards){
-                    UserScore userScore = new UserScore(topicCard.getTopicId(), topicCard.getName(), -99);
+                    UserScore userScore = new UserScore(topicCard.getTopicId(), topicCard.getName(), -99, "learn");
                     userScores.add(userScore);
                 }
                 //getUserScoresFromFirebase();

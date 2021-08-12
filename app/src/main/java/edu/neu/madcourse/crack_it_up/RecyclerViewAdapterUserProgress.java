@@ -37,8 +37,10 @@ public class RecyclerViewAdapterUserProgress extends RecyclerView.Adapter<Recycl
             holder.assignmentImage.setImageResource(R.drawable.ic_baseline_assignment);
         } else {
             holder.scoreTextView.setText("" + userScores.get(position).getScore() + "%");
-            if(userScores.get(position).getScore() < 70) {
+            if(userScores.get(position).getScore() < 70 && userScores.get(position).getScoreType().equals("learn")) {
                 holder.assignmentImage.setImageResource(R.drawable.ic_assignmnet_below_threshold);
+            } else if(userScores.get(position).getScore() < 70 && userScores.get(position).getScoreType().equals("behavioral")) {
+                holder.assignmentImage.setImageResource(R.drawable.ic_baseline_assignment);
             }
         }
 

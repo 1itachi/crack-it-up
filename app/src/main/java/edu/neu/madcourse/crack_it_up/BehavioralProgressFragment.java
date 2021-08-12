@@ -96,7 +96,10 @@ public class BehavioralProgressFragment extends Fragment {
                             notAttempted += 1;
                         }
                     }
-                    score = Math.round(attempted/(attempted + notAttempted)) * 100;
+                    score = (int) (((float) attempted/(attempted + notAttempted)) * 100.0);
+                    if(score == 0){
+                        score = -99;
+                    }
 
                     for (UserScore userScore: userScores) {
                         if(userScore.getTopicId().equals(topicId)) {
@@ -125,7 +128,7 @@ public class BehavioralProgressFragment extends Fragment {
                     }
                 }
                 for(TopicCard topicCard: topicCards){
-                    UserScore userScore = new UserScore(topicCard.getTopicId(), topicCard.getName(), -99);
+                    UserScore userScore = new UserScore(topicCard.getTopicId(), topicCard.getName(), -99, "behavioral");
                     userScores.add(userScore);
                 }
                 //getUserScoresFromFirebase();
