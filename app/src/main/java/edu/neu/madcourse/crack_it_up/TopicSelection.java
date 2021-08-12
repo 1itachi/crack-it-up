@@ -42,6 +42,17 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                //At this point you should start the login activity and finish this one
+                finish();
+            }
+
+        }, intentFilter);
         context = this;
         setContentView(R.layout.activity_topic_selection);
         broadcastReceiver = new InternetConnectivity();
@@ -54,6 +65,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
             switch (item.getItemId()) {
                 case R.id.homePage:
                     intent = new Intent(this, HomeScreenActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
@@ -70,6 +82,12 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
 
         username = getIntent().getStringExtra("username");
         objective = getIntent().getStringExtra("objective");
+        if(username==null){
+            username = "Alice";
+        }
+        if(objective==null){
+            objective = "learn";
+        }
         getTopicsFromFirebase();
 
         //recycler view
@@ -119,6 +137,18 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        checkInternet();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkInternet();
+    }
+
+    @Override
     public void onTopicClick(int position) {
         System.out.println("Topic clicked at position " + position);
 
@@ -164,11 +194,7 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(broadcastReceiver);
-    }
+
 
     private void captureOrientationChange() {
         SensorEventListener m_sensorEventListener = new SensorEventListener() {
@@ -196,4 +222,11 @@ public class TopicSelection extends AppCompatActivity implements RecyclerViewAda
         sm.registerListener(m_sensorEventListener, sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
+
 }

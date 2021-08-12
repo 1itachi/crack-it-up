@@ -24,10 +24,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ResultAnimation" />
+        <activity
+            android:name=".ResultAnimation"
+            android:noHistory="true"/>
         <activity
             android:name=".QuizActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"/>
         <activity
             android:name=".InterviewTips"
             android:exported="true" />

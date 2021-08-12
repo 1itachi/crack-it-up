@@ -86,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.homePage:
                     intent = new Intent(this, HomeScreenActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     overridePendingTransition(0,0);
@@ -104,7 +105,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                /** on your logout method:**/
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                sendBroadcast(broadcastIntent);
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -120,5 +126,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkInternet();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkInternet();
     }
 }

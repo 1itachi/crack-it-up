@@ -1,12 +1,15 @@
 package edu.neu.madcourse.crack_it_up;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,17 +19,29 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeScreenActivity extends AppCompatActivity {
     private String username;
-    BroadcastReceiver broadcastReceiver;
+    InternetConnectivity broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                //At this point you should start the login activity and finish this one
+                finish();
+            }
+
+        }, intentFilter);
+
         setContentView(R.layout.activity_homescreen);
 
-
         broadcastReceiver = new InternetConnectivity();
-        checkInternet();
 
+        checkInternet();
 
         username = getIntent().getStringExtra("USERNAME");
 
@@ -36,6 +51,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.homePage:
                     intent = new Intent(this, HomeScreenActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("USERNAME", username);
                     startActivity(intent);
                     overridePendingTransition(0,0);
@@ -57,10 +73,23 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        checkInternet();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkInternet();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
+
 
     public void onClickLearnButton(View view) {
         System.out.println("CLicked Learn button");

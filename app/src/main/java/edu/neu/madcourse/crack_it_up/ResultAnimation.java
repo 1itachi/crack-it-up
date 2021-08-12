@@ -108,6 +108,14 @@ public class ResultAnimation extends AppCompatActivity {
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkInternet();
+    }
+
+
     @Override
     protected void onPause() {
         super.onPause();
